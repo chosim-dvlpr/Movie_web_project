@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div v-for="movie in movieList" :key="movie.id" @click="gotoMovieDetail(movie)">
-        <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`">
-        {{ movie.title }}
+    <div v-for="movie in movieList" :key="movie.id">
+        <span @click="gotoMovieDetail(movie)">
+            <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`"><br>
+            {{ movie.title }}
+        </span>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="text" v-model.trim="createArticle">
+        <input type="text" v-model.trim="createArticle" @keyup.enter="submitArticle">
         <button @click="submitArticle">제출</button>
     </div>
 </template>
@@ -16,6 +16,7 @@ export default {
     methods: {
         submitArticle() {
             this.$emit('submit-article', this.createArticle)
+            this.createArticle = ''
         }
     }
 }
