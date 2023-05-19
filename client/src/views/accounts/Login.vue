@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     login: function () {
-         
       axios({
         method: 'post',
         url: "http://127.0.0.1:8000/api/token/",
@@ -38,7 +37,7 @@ export default {
       .then((res) => {
         localStorage.setItem("jwt", res.data.access)
         this.$emit('login')
-        this.$router.push({name: 'MovieDetail'})
+        this.$router.push({ name: 'MainView' })
       })
       .catch((err) => {
         console.log(err)

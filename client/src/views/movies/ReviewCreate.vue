@@ -2,8 +2,9 @@
   <div>
     <h2>리뷰 작성</h2>
     <h3>여기는 ReviewCreate 페이지</h3>
-    <!-- <form @submit.prevent="submitReview"> -->
-    <form>
+    <p>{{ this.$route.params.movieId }}</p>
+    <form @submit.prevent="submitReview">
+    <!-- <form> -->
       <div>
         <label for="title">제목:</label>
         <input type="text" id="title" v-model="title" required>
@@ -53,10 +54,17 @@ export default {
     },
     methods: {
         submitReview() {
-            this.reviewList.push(this.post)
-            // console.log(this.reviewList)
-            this.$emit('submit-review', this.reviewList)
-            this.$router.push({ name: 'ReviewList', params: { reviewList: this.reviewList } })
+          const newPost = {
+            title: this.title,
+            content: this.content,
+            rating: this.rating,
+            recommendation: this.recommendation
+          }
+
+          console.log(this.$route.params.movieId)
+          this.reviewList.push(newPost)
+          this.$emit('submit-review', this.reviewList)
+          this.$router.push({ name: 'ReviewList', params: { reviewList: this.reviewList } })
         },
 
         // django 연결

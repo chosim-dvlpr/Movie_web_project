@@ -84,3 +84,17 @@ def review_create(request, movie_pk):
 #         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
+
+
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    # 커스텀 페이로드 추가
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        # 추가 정보를 응답에 포함시킬 수 있음
+        response.data['custom_field'] = 'custom_value'
+        return response
+
+class MyTokenRefreshView(TokenRefreshView):
+    pass

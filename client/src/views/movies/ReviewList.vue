@@ -3,7 +3,7 @@
     <h1>여기는 ReviewList</h1>
     <h2>리뷰 리스트 페이지</h2>
     <hr>    
-    <p>{{ this.post }}</p>
+    <p>{{ this.reviewList }}</p>
     <span v-for="(review, index) in reviewList" :key="index">
         <p>리뷰 제목 : {{ review.title }}</p>
         <p>내용 : {{ review.content }}</p>
@@ -19,10 +19,13 @@ export default {
     name: 'ReviewList',
     data() {
         return {
-            // reviewList: [],
-            reviewList: this.$route.params.reviewList
+            reviewList: [],
+            // reviewList: this.$route.params.reviewList
         }
     },
+    mounted() {
+      this.reviewList = this.$route.params.reviewList
+    }
     // mounted() {
     //     // 로컬 스토리지에서 리뷰 불러오기
     //     const storedReviews = localStorage.getItem('reviewList')

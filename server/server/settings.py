@@ -16,7 +16,8 @@ from pathlib import Path
 ## 추가 ## 문제 명세에 나와있는 장고 공식 문서 사이트 -> 우측 settings
 from datetime import timedelta
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 ##
 

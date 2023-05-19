@@ -32,7 +32,7 @@ export default {
     logout: function() {                  // logout 메서드 정의하는데, 로그아웃을 처리하기 위해 사용.
       this.isLogin = false                // isLogin 을 false 로 설정.
       localStorage.removeItem('jwt')      // 로컬스토리지에서 jwt 제거
-      this.$router.push({name: 'login'})  // 로그인 페이지로 이동
+      this.$router.push({name: 'Login'})  // 로그인 페이지로 이동
     }
   },
   created () {                        // 앱이 생성될떄 호출되는 함수 정의(라이프사이클훅)
