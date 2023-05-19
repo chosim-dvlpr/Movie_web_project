@@ -1,7 +1,3 @@
-import requests
-from django.http import JsonResponse
-# import api_key from 
-
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -63,17 +59,7 @@ def review_create(request, movie_pk):
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(movie=movie)
-            url = "https://api.themoviedb.org/3/configuration"
-
-            headers = {
-                "accept": "application/json",
-                "Authorization": "Bearer ${API_KEY}"
-            }
-
-            response = requests.get(url, headers=headers)   
-            return response.json()
-            # return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 # @api_view(['GET', 'PUT', 'DELETE'])
