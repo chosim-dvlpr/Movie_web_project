@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MovieDetail from '@/views/movies/MovieDetail'
 import MainView from '@/views/movies/MainView'
-import ArticleView from '@/views/movies/ArticleView'
+import ReviewList from '@/views/movies/ReviewList'
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
 
@@ -30,9 +30,9 @@ const routes = [
     component: MainView,
   },
   {
-    path: '/articleview',
-    name: 'ArticleView',
-    component: ArticleView,
+    path: '/reviewlist',
+    name: 'ReviewList',
+    component: ReviewList,
   },
 ]
 
