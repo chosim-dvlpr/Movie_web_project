@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import MovieDetail from '@/views/movies/MovieDetail'
 import MainView from '@/views/movies/MainView'
 import ReviewList from '@/views/movies/ReviewList'
+import ReviewCreate from '@/views/movies/ReviewCreate'
+
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
 
@@ -10,7 +12,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/moviedetail',
+    path: '/moviedetail/:id',
     name: 'MovieDetail',
     component: MovieDetail,
   },
@@ -33,6 +35,11 @@ const routes = [
     path: '/reviewlist',
     name: 'ReviewList',
     component: ReviewList,
+  },
+  {
+    path: '/reviewcreate',
+    name: 'ReviewCreate',
+    component: ReviewCreate,
   },
 ]
 

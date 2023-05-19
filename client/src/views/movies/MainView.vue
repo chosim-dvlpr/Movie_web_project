@@ -36,7 +36,7 @@ export default {
         },
         // 클릭 시 Movie 상세페이지로 이동
         gotoMovieDetail(movie) {
-            this.$router.push({ name: 'MovieDetail', params: { movie: movie }})
+            this.$router.push({ name: 'MovieDetail', params: { id: movie.id, movie: movie }})
         }
     },
     mounted() {

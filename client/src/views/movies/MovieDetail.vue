@@ -7,9 +7,13 @@
       <p>Title : {{ movieTitle }}</p>
       <p>개요 : {{ movieOverview }}</p>
       <p>개봉일 : {{ movieReleaseDate }}</p>
+      <hr>
     </div>
 
-
+    <div>
+      <h3>리뷰 모아보기</h3>
+      <button @click="goToReviewCreate">리뷰작성</button>
+    </div>
 
     <div>
       <button @click="backToMain">뒤로가기</button>
@@ -18,6 +22,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'MovieDetail',
     data() {
@@ -31,6 +36,9 @@ export default {
     methods: {
       backToMain() {
         this.$router.push({ name: 'MainView' })
+      },
+      goToReviewCreate() {
+        this.$router.push({ name: 'ReviewCreate' })
       }
     },
     mounted() {

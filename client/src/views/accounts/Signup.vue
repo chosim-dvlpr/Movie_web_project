@@ -11,7 +11,7 @@
     </div>
     <div>
       <label for="paswordConfirm">비밀번호 확인: </label>
-      <input type="password" id="passwordConfirm" @keyup.enter="singup" v-model="userdata.passwordConfirm">
+      <input type="password" id="passwordConfirm" @keyup.enter="signup" v-model="userdata.passwordConfirm">
     </div>
     <button @click="signup">회원가입</button>
   </div>
@@ -22,7 +22,7 @@ import axios from 'axios'
 
 // CONST BASE_URL = "http://127.0.0.8000/accounts/signup/"
 export default {
-  name: 'Singup', 
+  name: 'Signup', 
   data: function () {
     return {
       userdata: {

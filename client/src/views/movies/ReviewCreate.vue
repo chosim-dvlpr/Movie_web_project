@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>리뷰 작성</h2>
-    <h3>여기는 CreateReview 페이지</h3>
+    <h3>여기는 ReviewCreate 페이지</h3>
     <form @submit.prevent="submitReview">
       <div>
         <label for="title">제목:</label>
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-    name: 'CreateReview',
+    name: 'ReviewCreate',
     data() {
         return {
             post: {
@@ -36,14 +36,16 @@ export default {
                 content: '',
                 rating: null,
                 recommendation: false
-            }
+            },
+            reviewList: [],
         }
     },
     methods: {
         submitReview() {
-            // console.log(this.post)
-            // this.$router.push({ name: 'MainView' })
-            this.$emit('submit-review', this.post)
+            this.reviewList.push(this.post)
+            // console.log(this.reviewList)
+            this.$emit('submit-review', this.reviewList)
+            this.$router.push({ name: 'ReviewList', params: { reviewList: this.reviewList } })
         }
     }
 }

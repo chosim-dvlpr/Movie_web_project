@@ -5,6 +5,7 @@
         <!-- router-link 는 to 다음에 목표경로 설정, a tag와 비슷한 역할 -->
         <router-link :to="{ name: 'MainView' }">Main</router-link> | 
         <router-link :to="{ name: 'ReviewList' }">ReviewList</router-link> | 
+        <router-link :to="{ name: 'ReviewCreate' }">ReviewCreate</router-link> | 
         <router-link to="#" @click="logout.native">Logout</router-link> 
         <!--.native : 현재 컴포넌트에 요청을 보내기 위해 사용 -->
       </span>
