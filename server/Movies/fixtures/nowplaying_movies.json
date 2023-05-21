@@ -1,10 +1,4 @@
-{
-  "dates": {
-    "maximum": "2023-05-15",
-    "minimum": "2023-03-28"
-  },
-  "page": 1,
-  "results": [
+[
     {
       "adult": false,
       "backdrop_path": "/aAgGrfBwna1nO4M2USxwFgK5O0t.jpg",
@@ -1186,7 +1180,4 @@
       "vote_average": 7.6,
       "vote_count": 14025
     }
-  ],
-  "total_pages": 93,
-  "total_results": 1853
-}
+  ]

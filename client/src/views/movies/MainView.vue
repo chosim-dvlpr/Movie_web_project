@@ -2,8 +2,9 @@
   <div>
     <div v-for="movie in movieList" :key="movie.id">
         <span @click="gotoMovieDetail(movie)">
-            <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`"><br>
-            {{ movie.title }}
+            <!-- <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`"><br> -->
+            <p>title : {{ movie.title }}</p>
+            <p>overview : {{ movie.overview }}</p>
         </span>
     </div>
   </div>
@@ -11,7 +12,6 @@
 
 <script>
 import axios from 'axios'
-import api_key from '../../../data'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -19,7 +19,6 @@ export default {
     name: 'MainView',
     data: function () {
         return {
-            api_key: api_key.API_KEY,
             movieList: [],
         }
     },
@@ -28,11 +27,12 @@ export default {
             axios({
                 method: 'get',
                 // url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko&page=1&sort_by=popularity.desc&api_key=${this.api_key}`
-                url: `${API_URL}/movies/` // back server urls.py와 맞추기
+                url: `${API_URL}/api/movies/`, // back server urls.py와 맞추기
+                // headers: this.setToken()
             })
             .then(res => {
-                console.log(res)
-                // this.movieList = res.data.results
+                console.log(res.data)
+                this.movieList = res.data
             })
             .catch(err => {
                 console.log(err)
@@ -41,9 +41,19 @@ export default {
         // 클릭 시 Movie 상세페이지로 이동
         gotoMovieDetail(movie) {
             this.$router.push({ name: 'MovieDetail', params: { id: movie.id, movie: movie }})
-        }
+        },
+
+        // 토큰
+        setToken: function() {
+            const token = localStorage.getItem('jwt')
+            const config = {
+                Authorization: `Bearer ${token}`
+            }
+            console.log(config)
+            return config
+        },
     },
-    mounted() {
+    created() {
         this.showMovies()
     },
 }
