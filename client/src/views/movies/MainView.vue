@@ -13,6 +13,8 @@
 import axios from 'axios'
 import api_key from '../../../data'
 
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
     name: 'MainView',
     data: function () {
@@ -25,10 +27,12 @@ export default {
         showMovies: function() {
             axios({
                 method: 'get',
-                url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko&page=1&sort_by=popularity.desc&api_key=${this.api_key}`
+                // url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko&page=1&sort_by=popularity.desc&api_key=${this.api_key}`
+                url: `${API_URL}/movies/` // back server urls.py와 맞추기
             })
             .then(res => {
-                this.movieList = res.data.results
+                console.log(res)
+                // this.movieList = res.data.results
             })
             .catch(err => {
                 console.log(err)
