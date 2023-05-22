@@ -4,7 +4,7 @@ import MovieDetail from '@/views/movies/MovieDetail'
 import MainView from '@/views/movies/MainView'
 import ReviewList from '@/views/movies/ReviewList'
 import ReviewCreate from '@/views/movies/ReviewCreate'
-
+import ReviewDetail from '@/views/movies/ReviewDetail'
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
 
@@ -40,6 +40,11 @@ const routes = [
     path: '/reviewcreate',
     name: 'ReviewCreate',
     component: ReviewCreate,
+  },
+  {
+    path: '/reviewdetail/:id',
+    name: 'ReviewDetail',
+    component: ReviewDetail,
   },
 ]
 

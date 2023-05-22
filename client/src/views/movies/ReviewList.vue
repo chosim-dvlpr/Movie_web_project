@@ -7,13 +7,15 @@
     <!-- <p>{{ this.reviewList[0] }}</p> -->
     <!-- <p>{{ this.reviewList }}</p> -->
     <span v-for="(review, index) in reviewList[0].filter((word) => word.movie === this.movieId)" :key="index">
-        <p>리뷰 제목 : {{ review.title }}</p>
-        <p>내용 : {{ review.content }}</p>
-        <p>평점 : {{ review.rating }}</p>
-        <p>이 영화를 추천합니다 : {{ review.recommendation }}</p>
-        <button @click="modifyReview">리뷰 수정하기</button>
-        <button @click="deleteReview">리뷰 삭제하기</button>
-        <hr>
+      <span @click="goToReviewDetail(review)">
+          <p>리뷰 제목 : {{ review.title }}</p>
+          <p>내용 : {{ review.content }}</p>
+          <p>평점 : {{ review.rating }}</p>
+          <p>이 영화를 추천합니다 : {{ review.recommendation }}</p>
+          <!-- <button @click="modifyReview">리뷰 수정하기</button>
+          <button @click="deleteReview">리뷰 삭제하기</button> -->
+          <hr>
+      </span>
     </span>
   </div>
 </template>
@@ -33,12 +35,10 @@ export default {
         }
     },
     methods: {
-      modifyReview() {
-
-      },
-      deleteReview() {
-
-      },
+      goToReviewDetail(review) {
+        this.$router.push({ name: 'ReviewDetail', params: { id:review.id, review:review }})
+      }
+      
     },
     mounted() {
       this.movieId = this.$route.params.id
