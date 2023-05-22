@@ -4,7 +4,7 @@
     <h2>영화 디테일을 볼 수 있는 페이지</h2>
     <div>
       <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${moviePoster}`">
-      <p>Title : {{ movieTitle }}</p>
+      <p>Title : {{ movieTitle.title }}</p>
       <p>개요 : {{ movieOverview }}</p>
       <p>개봉일 : {{ movieReleaseDate }}</p>
       <hr>
@@ -31,7 +31,8 @@ export default {
     data() {
       return {
         // movie: null,
-        movieTitle: null,
+        // movieTitle: null,
+        movieTitle: JSON.parse(localStorage.getItem("moviedetail")) || "",
         moviePoster: null,
         movieOverview: null,
         movieReleaseDate: null,
@@ -50,7 +51,9 @@ export default {
       }
     },
     created() {
-      this.movieTitle = this.$route.params.movie.title
+      // this.movieTitle = this.$route.params.movie.title
+      // this.movieTitle = localStorage.getItem('movie')
+      console.log(this.movieTitle)
       this.moviePoster = this.$route.params.movie.backdrop_path
       this.movieOverview = this.$route.params.movie.overview
       this.movieReleaseDate = this.$route.params.movie.release_date

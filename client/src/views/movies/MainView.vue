@@ -12,6 +12,7 @@
 
 <script>
 import axios from 'axios'
+// import { mapState } from 'vuex'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -20,6 +21,7 @@ export default {
     data: function () {
         return {
             movieList: [],
+            test: '',
         }
     },
     methods: {
@@ -32,6 +34,11 @@ export default {
             })
             .then(res => {
                 this.movieList = res.data
+                console.log(this.movieList)
+                // localStorage.clear('movieList')
+                localStorage.setItem('movieList', JSON.stringify(this.movieList))
+                this.test = localStorage.getItem('movieList')
+                console.log(this.test+'_')
             })
             .catch(err => {
                 console.log(err)
@@ -41,6 +48,7 @@ export default {
         gotoMovieDetail(movie) {
             // console.log(movie)
             this.$router.push({ name: 'MovieDetail', params: { id: movie.id, movie: movie }})
+            localStorage.setItem('moviedetail', JSON.stringify(movie))
         },
 
         // 토큰
@@ -53,9 +61,14 @@ export default {
             return config
         },
     },
-    mounted() {
+    created() {
         this.showMovies()
     },
+    // computed: {
+    //     ...mapState({
+    //         movieList: state => state.movieList
+    //     })
+    // }
 }
 </script>
 
