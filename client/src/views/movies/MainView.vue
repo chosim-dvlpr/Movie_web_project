@@ -3,7 +3,6 @@
     <div v-for="movie in movieList" :key="movie.id">
         <span @click="gotoMovieDetail(movie)">
             <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.backdrop_path}`"><br>
-            <p>{{movie.backdrop_path}}</p>
             <p>title : {{ movie.title }}</p>
             <p>overview : {{ movie.overview }}</p>
         </span>
@@ -32,7 +31,6 @@ export default {
                 // headers: this.setToken()
             })
             .then(res => {
-                console.log(res.data)
                 this.movieList = res.data
             })
             .catch(err => {
@@ -41,6 +39,7 @@ export default {
         },
         // 클릭 시 Movie 상세페이지로 이동
         gotoMovieDetail(movie) {
+            console.log(movie)
             this.$router.push({ name: 'MovieDetail', params: { id: movie.id, movie: movie }})
         },
 

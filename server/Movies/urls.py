@@ -17,6 +17,6 @@ urlpatterns = [
     # path('', views.ApiTodoLV.as_view()),
 
     # path('reviews/', views.review_list),
-    # path('<int:movie_pk>/reviewcreate/', views.review_create),
+    path('<int:movie_pk>/reviewcreate/', views.review_create),
     path('<int:movie_pk>/', views.movie_detail),
 ]

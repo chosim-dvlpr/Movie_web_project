@@ -12,6 +12,9 @@
 
     <div>
       <h3>리뷰 모아보기</h3>
+      <p>movieId : {{ this.movieId }}</p>
+      <!-- 리뷰 모아보기를 버튼 말고 화면에 띄우도록 수정하기 -->
+      <button @click="goToReviewList">리뷰 보기</button>
       <button @click="goToReviewCreate">리뷰작성</button>
     </div>
 
@@ -39,12 +42,15 @@ export default {
         this.$router.push({ name: 'MainView' })
       },
       goToReviewCreate() {
-        this.$router.push({ name: 'ReviewCreate', params: { movieId: this.movieId }})
+        this.$router.push({ name: 'ReviewCreate', params: { id: this.movieId }})
+      },
+      goToReviewList () {
+        this.$router.push({ name: 'ReviewList', params: { id: this.movieId }})
       }
     },
     mounted() {
       this.movieTitle = this.$route.params.movie.title
-      this.moviePoster = this.$route.params.movie.poster_path
+      this.moviePoster = this.$route.params.movie.backdrop_path
       this.movieOverview = this.$route.params.movie.overview
       this.movieReleaseDate = this.$route.params.movie.release_date
       this.movieId = this.$route.params.movie.id
