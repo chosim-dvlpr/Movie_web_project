@@ -51,6 +51,7 @@ export default {
       }
     },
     created() {
+      
       // this.movieTitle = this.$route.params.movie.title
       // this.movieTitle = localStorage.getItem('movie')
       console.log(this.movieTitle)
