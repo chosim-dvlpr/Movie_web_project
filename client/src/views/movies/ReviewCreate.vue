@@ -71,15 +71,16 @@ export default {
         // django 연결
         reviewCreate() {
             const reviewItem = {
+                movieId: this.movieId,
                 title: this.title,
                 content: this.content,
                 rating: this.rating,
                 recommendation: `${this.recommendation}`
             }
-            console.log('_'+reviewItem)
+            // console.log('_'+reviewItem)
             // reviewItem에 값이 들어간다면 (입력된다면) axios 실행
             if (reviewItem.title) {
-                console.log('axios 실행')
+                // console.log('axios 실행')
                 // this.newPost.push(reviewItem)
                 // console.log(this.newPost)
                 axios({
@@ -89,7 +90,7 @@ export default {
                 })
                 .then(res => {
                     console.log(res)
-                    this.$emit('submit-review', this.reviewItem)
+                    // this.$emit('submit-review', this.reviewItem)
                     this.$router.push({ name: 'ReviewList', params: { id: this.movieId } })
                 })
                 .catch(err => {

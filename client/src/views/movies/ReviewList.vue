@@ -3,11 +3,12 @@
     <h1>여기는 ReviewList</h1>
     <h2>리뷰 리스트 페이지</h2>
     <hr>    
-    <p>movie id : {{ this.movieId }}</p>
     <!-- <p>{{ this.reviewList[0] }}</p> -->
     <!-- <p>{{ this.reviewList }}</p> -->
     <span v-for="(review, index) in reviewList[0].filter((word) => word.movie === this.movieId)" :key="index">
       <span @click="goToReviewDetail(review)">
+          <p>review id : {{ review.id }}</p>
+          <p>movie id : {{ review.movie }}</p>
           <p>리뷰 제목 : {{ review.title }}</p>
           <p>내용 : {{ review.content }}</p>
           <p>평점 : {{ review.rating }}</p>
@@ -29,7 +30,6 @@ export default {
     data() {
         return {
             reviewList: [],
-            movieId: null,
             // reviewList: this.$route.params.reviewList
         }
     },
@@ -38,28 +38,27 @@ export default {
         this.$router.push({ name: 'ReviewDetail', params: { id: review.id, review: review }})
       },
       goToMovieDetail(movieId) {
-        console.log(movieId)
-        this.$router.push({ name: 'MovieDetail', params: { id: movieId }})
+        this.$router.push({ name: 'MovieDetail', params: { id: movieId, movieId: movieId }})
       }
       
     },
     mounted() {
       this.movieId = this.$route.params.id
-      console.log(this.id)
+      // console.log(this.id)
     },
     created() {
       axios({
         method: 'get',
         url: `${API_URL}/api/movies/reviewlist/`,
-    })
-    .then(res => {
-        console.log(res.data)
-        this.reviewList.push(res.data)
-        // console.log(this.reviewList)
-    })
-    .catch(err => {
-        console.log(err)
-    })
+      })
+      .then(res => {
+          console.log(res.data)
+          this.reviewList.push(res.data)
+          // console.log(this.reviewList)
+      })
+      .catch(err => {
+          console.log(err)
+      })
     }
     // mounted() {
     //     // 로컬 스토리지에서 리뷰 불러오기

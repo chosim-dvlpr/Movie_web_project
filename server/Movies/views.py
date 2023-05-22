@@ -159,6 +159,7 @@ def review_detail(request, review_pk):
         return Response(serializer.data)
     
     elif request.method == 'PUT':
+        print('받음')
         serializer = ReviewSerializer(review, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()

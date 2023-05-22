@@ -39,11 +39,8 @@ export default {
         url: "http://127.0.0.1:8000/accounts/signup/",
         data: this.userdata, 
       })
-      // .then((res) => {
-      //   console.log(res)
-      // })
       .then(() => {
-        this.$router.push({name: 'Login'})
+        this.$router.push({ name: 'Login' })
       })
       .catch((err) => {
         console.log(err)

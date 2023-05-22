@@ -9,7 +9,7 @@
         <router-link to="#" @click.native="logout">Logout</router-link> 
         <!--.native : 현재 컴포넌트에 요청을 보내기 위해 사용 -->
       </span>
-      <span v-else> <!-- -->
+      <span v-else>
         <router-link :to="{ name: 'Signup' }">Signup</router-link> |
         <router-link :to="{ name: 'Login' }">Login</router-link> 
       </span>
