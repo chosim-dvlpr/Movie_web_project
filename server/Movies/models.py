@@ -4,12 +4,31 @@ from django.conf import settings
 # class Actor(models.Model):
 #     name = models.CharField(max_length=100)
 
-class Movie(models.Model):
-    title = models.CharField(max_length=100)
-    overview = models.TextField()
-    release_date = models.DateTimeField()
-    poster_path = models.TextField()
+# class Movie(models.Model):
+#     title = models.CharField(max_length=100)
+#     overview = models.TextField()
+#     release_date = models.DateTimeField()
+#     poster_path = models.TextField()
     # actors = models.ManyToManyField(Actor, related_name='movies')
+
+# genre 모델 추가해야함 for genre_ids
+
+class Movie(models.Model):
+    adult = models.BooleanField()
+    backdrop_path = models.TextField()
+    # genre_ids = models.ForeignKey(Genre, on_delete=CASCADE, related_name='movie_set')
+    # "id"= 713704
+    original_language = models.CharField(max_length=100)
+    original_title = models.CharField(max_length=100)
+    overview = models.TextField()
+    popularity = models.FloatField()
+    poster_path = models.TextField()
+    release_date = models.DateTimeField()
+    title = models.CharField(max_length=100)
+    video = models.BooleanField
+    vote_average = models.FloatField()
+    vote_count = models.IntegerField()
+
 
 # class Review(models.Model):
 #     title = models.CharField(max_length=100)
