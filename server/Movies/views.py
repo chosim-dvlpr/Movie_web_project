@@ -150,26 +150,26 @@ def review_create(request, movie_pk):
         print(serializer.errors)
 
 
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def review_detail(request, review_pk):
-#     review = get_object_or_404(Review, pk=review_pk)
+@api_view(['GET', 'PUT', 'DELETE'])
+def review_detail(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
 
-#     if request.method == 'GET':
-#         serializer = ReviewDetailSerializer(review)
-#         return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = ReviewSerializer(review)
+        return Response(serializer.data)
     
-#     elif request.method == 'PUT':
-#         serializer = ReviewDetailSerializer(review, data=request.data)
-#         if serializer.is_valid(raise_exception=True):
-#             serializer.save()
-#             return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ReviewSerializer(review, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
         
-#     elif request.method == 'DELETE':
-#         review.delete()
-#         data = {
-#             'delete': f'review {review_pk} is deleted'
-#         }
-#         return Response(data, status=status.HTTP_204_NO_CONTENT)
+    elif request.method == 'DELETE':
+        review.delete()
+        data = {
+            'delete': f'review {review_pk} is deleted'
+        }
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 

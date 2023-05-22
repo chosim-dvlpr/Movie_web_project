@@ -6,6 +6,8 @@
         <p>내용 : {{ this.content }}</p>
         <p>평점 : {{ this.rating }}</p>
         <p>추천 : {{ this.recommendation }}</p>
+        <button @click="modifyReview">리뷰 수정하기</button>
+        <button @click="deleteReview">리뷰 삭제하기</button>
     </div>
   </div>
 </template>
@@ -64,10 +66,27 @@ export default {
         },
     },
     created() {
-        this.title = this.$route.params.review.title
-        this.content = this.$route.params.review.content
-        this.rating = this.$route.params.review.rating
-        this.recommendation = this.$route.params.review.recommendation
+        // this.title = this.$route.params.review.title
+        // this.content = this.$route.params.review.content
+        // this.rating = this.$route.params.review.rating
+        // this.recommendation = this.$route.params.review.recommendation
+        axios({
+            method: 'get',
+            url: `${API_URL}/api/movies/${this.$route.params.review.id}/reviewdetail/`,
+        })
+        .then(res => {
+            this.title = res.data.title
+            this.content = res.data.content
+            this.rating = res.data.rating
+            this.recommendation = res.data.recommendation
+
+            // console.log(res)
+            // this.reviewList.push(res.data)
+            // console.log(this.reviewList)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 }
 </script>

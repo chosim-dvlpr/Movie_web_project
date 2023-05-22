@@ -12,11 +12,10 @@
           <p>내용 : {{ review.content }}</p>
           <p>평점 : {{ review.rating }}</p>
           <p>이 영화를 추천합니다 : {{ review.recommendation }}</p>
-          <!-- <button @click="modifyReview">리뷰 수정하기</button>
-          <button @click="deleteReview">리뷰 삭제하기</button> -->
           <hr>
       </span>
     </span>
+    <button @click="goToMovieDetail">뒤로가기</button>
   </div>
 </template>
 
@@ -36,7 +35,11 @@ export default {
     },
     methods: {
       goToReviewDetail(review) {
-        this.$router.push({ name: 'ReviewDetail', params: { id:review.id, review:review }})
+        this.$router.push({ name: 'ReviewDetail', params: { id: review.id, review: review }})
+      },
+      goToMovieDetail(movieId) {
+        console.log(movieId)
+        this.$router.push({ name: 'MovieDetail', params: { id: movieId }})
       }
       
     },

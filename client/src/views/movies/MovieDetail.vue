@@ -14,7 +14,7 @@
       <h3>리뷰 모아보기</h3>
       <p>movieId : {{ this.movieId }}</p>
       <!-- 리뷰 모아보기를 버튼 말고 화면에 띄우도록 수정하기 -->
-      <button @click="goToReviewList">리뷰 보기</button>
+      <button @click="goToReviewList(this.movie)">리뷰 보기</button>
       <button @click="goToReviewCreate">리뷰작성</button>
     </div>
 
@@ -30,6 +30,7 @@ export default {
     name: 'MovieDetail',
     data() {
       return {
+        movie: null,
         movieTitle: null,
         movieImage: null,
         movieOverview: null,
@@ -44,11 +45,12 @@ export default {
       goToReviewCreate() {
         this.$router.push({ name: 'ReviewCreate', params: { id: this.movieId }})
       },
-      goToReviewList () {
-        this.$router.push({ name: 'ReviewList', params: { id: this.movieId }})
+      goToReviewList (movie) {
+        this.$router.push({ name: 'ReviewList', params: { id: this.movieId, movie:movie }})
       }
     },
     mounted() {
+      this.movie = this.$route.params.movie
       this.movieTitle = this.$route.params.movie.title
       this.moviePoster = this.$route.params.movie.backdrop_path
       this.movieOverview = this.$route.params.movie.overview
