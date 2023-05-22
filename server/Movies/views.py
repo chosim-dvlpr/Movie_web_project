@@ -16,14 +16,57 @@ from .data import API_KEY
 from .models import Movie
 
 
+def start_function():
+    print('hello world!')
+    for i in range(1, 10):
+        url = f"https://api.themoviedb.org/3/movie/popular?language=ko-KR&page={i}&without_genres=10749&api_key={API_KEY}"
+        print('letsgo')
+        response = requests.get(url).json()
+        movie_data = response['results']
+        # data = []
+
+        for movie in movie_data:
+            mv=Movie(title=movie['title'],
+                backdrop_path=movie['backdrop_path'],
+                original_language=movie['original_language'],
+                original_title=movie['original_title'],
+                overview=movie['overview'],
+                release_date=movie['release_date'],
+                vote_average=movie['vote_average'],
+                id=movie['id']
+                )
+            mv.save()
+        # Movie.objects.create({
+        #     'adult': movie.get('adult'),
+        #     'backdrop_path': movie.get('backdrop_path'),
+        #     'genre_ids': movie.get('genre_ids'),
+        #     'id': movie.get('id'),
+        #     'original_language': movie.get('original_language'),
+        #     'original_title': movie.get('original_title'),
+        #     'overview': movie.get('overview'),
+        #     'popularity': movie.get('popularity'),
+        #     'poster_path': movie.get('poster_path'),
+        #     'release_date': movie.get('release_date'),
+        #     'title': movie.get('title'),
+        #     'video': movie.get('video'),
+        #     'vote_average': movie.get('vote_average'),
+        #     'vote_count': movie.get('vote_count'),
+        # })
+
+
+
+
+
+
 def api_movie():
+    print('*********************')
     url = f"https://api.themoviedb.org/3/movie/popular?language=ko&page=1&api_key={API_KEY}"
 
     response = requests.get(url).json()
-    movie_data = response.get['results']
+    movie_data = response.get('results')
     # data = []
 
-    Movie = Movies.get_model('Movies', 'Movie')
+    # Movie = Movies.get_model('Movies', 'Movie')
 
     for movie in movie_data:
         Movie.objects.create({

@@ -40,6 +40,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_apscheduler',
+
     'Movies',
     'Accounts',
 
@@ -66,6 +68,13 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'rest_framework.authtoken',
 ]
+
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"  # Default
+
+SCHEDULER_DEFAULT = True
+
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",

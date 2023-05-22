@@ -1,12 +1,12 @@
 from django.apps import AppConfig
+from django.conf import settings
+import Movies
 
 class MoviesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'Movies'
     
     def ready(self):
-        from .models import Movie
-        from .views import api_movie
-
-        Movie = Movies.get_model('Movies', 'Movie')
-        api_movie()
+        if settings.SCHEDULER_DEFAULT:
+            from . import forapi
+            forapi.start()

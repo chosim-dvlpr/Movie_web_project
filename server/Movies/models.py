@@ -14,20 +14,20 @@ from django.conf import settings
 # genre 모델 추가해야함 for genre_ids
 
 class Movie(models.Model):
-    adult = models.BooleanField()
-    backdrop_path = models.TextField()
+    title = models.CharField(max_length=100, null=True)
+    adult = models.CharField(max_length=20, null=True)
+    backdrop_path = models.TextField(null=True)
     # genre_ids = models.ForeignKey(Genre, on_delete=CASCADE, related_name='movie_set')
     # "id"= 713704
-    original_language = models.CharField(max_length=100)
-    original_title = models.CharField(max_length=100)
-    overview = models.TextField()
-    popularity = models.FloatField()
-    poster_path = models.TextField()
-    release_date = models.DateTimeField()
-    title = models.CharField(max_length=100)
-    video = models.BooleanField
-    vote_average = models.FloatField()
-    vote_count = models.IntegerField()
+    original_language = models.CharField(max_length=100, null=True)
+    original_title = models.CharField(max_length=100, null=True)
+    overview = models.TextField(null=True)
+    popularity = models.FloatField(null=True)
+    poster_path = models.TextField(null=True)
+    release_date = models.CharField(null=True, max_length=50)
+    video = models.CharField(null=True, max_length=20)
+    vote_average = models.FloatField(null=True)
+    vote_count = models.IntegerField(null=True)
 
 
 # class Review(models.Model):
