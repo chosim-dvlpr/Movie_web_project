@@ -2,12 +2,21 @@
   <div>
     <h1>여기는 리뷰 디테일 페이지 ~ ! ^.^ </h1>
     <div>
-        <h1>review id : {{ this.review.id }}</h1>
-        <h1>movie Id : {{ this.review.movie }}</h1>
-        <p>제목 : {{ this.review.title }}</p>
-        <p>내용 : {{ this.review.content }}</p>
-        <p>평점 : {{ this.review.rating }}</p>
-        <p>추천 : {{ this.review.recommendation }}</p>
+        <div>
+            <h1>review id : {{ this.review.id }}</h1>
+            <h1>movie Id : {{ this.review.movie }}</h1>
+            <p>제목 : {{ this.review.title }}</p>
+            <p>내용 : {{ this.review.content }}</p>
+            <p>평점 : {{ this.review.rating }}</p>
+            <p>추천 : {{ this.review.recommendation }}</p>
+            <hr>
+        </div>
+        <div>
+            <h2>Comments</h2>
+            <input type="text" v-model="comment" @keyup.enter="submitComment">
+            <button @click="submitComment">작성</button>
+        </div>
+        <hr>
         <div>
             <button @click="modifyReview">리뷰 수정하기</button>
             <button @click="deleteReview">리뷰 삭제하기</button>
@@ -34,20 +43,32 @@ export default {
             rating: null,
             recommendation: null,
             movieId: null,
+
+            userName: null,
+            currentUserName: localStorage.getItem("username"),
         }
     },
     methods: {
+        // 리뷰 수정
         modifyReview() {
-            const newReview = {
-                reviewId: this.review.id,
-                movieId: this.review.movie,
-                title: this.review.title,
-                content: this.review.content,
-                rating: this.review.rating,
-                recommendation: this.review.recommendation,
+            console.log(this.userName)
+            console.log(this.currentUserName)
+
+            if (this.userName === this.currentUserName) {
+                const newReview = {
+                    reviewId: this.review.id,
+                    movieId: this.review.movie,
+                    title: this.review.title,
+                    content: this.review.content,
+                    rating: this.review.rating,
+                    recommendation: this.review.recommendation,
+                }
+                // console.log(getUserId())
+                this.$router.push({ name: 'ReviewModify', params: { id: this.reviewId, review: newReview }})
+            } else {
+                alert('수정할 수 없습니다!')
             }
-            // console.log(getUserId())
-            this.$router.push({ name: 'ReviewModify', params: { id: this.reviewId, review: newReview }})
+
             
             // this.$emit('modify-review', newReview)
         },
@@ -73,23 +94,31 @@ export default {
         //         console.log(err)
         //     })
         // },
+
+        // 리뷰 삭제
         deleteReview() {
-            // const reviewId = this.$route.params.id;
-            axios({
-                method: 'delete',
-                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/`,
-                headers: this.setToken(),
-            })
-            .then(res => {
-                // console.log(res.data)
-                this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
-                this.reviewList.removeItem(res.data)
-                // console.log(this.reviewList)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            if (this.userName === this.currentUserName) {
+                axios({
+                    method: 'delete',
+                    url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/`,
+                    // headers: this.setToken(),
+                })
+                .then(res => {
+                    // console.log(res.data)
+                    this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
+                    this.reviewList.removeItem(res.data)
+                    // console.log(this.reviewList)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            } else {
+                alert('수정할 수 없습니다!')
+            }
+
         },
+
+        // 리뷰 리스트로 이동
         goToReviewList() {
             this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
         }
@@ -102,13 +131,14 @@ export default {
         this.reviewId = this.$route.params.review.id
         // console.log(this.reviewId+'여기')
         // console.log(this.$route.params.review.id)
-        console.log(this.reviewId)
+        // console.log(this.reviewId)
         axios({
             method: 'get',
             url: `${API_URL}/api/movies/${this.$route.params.review.id}/reviewdetail/`,
         })
         .then(res => {
             this.movieId = res.data.movie.id
+            this.userName = res.data.user.username
             // this.reviewId = res.data.id
             // this.title = res.data.title
             // this.content = res.data.content

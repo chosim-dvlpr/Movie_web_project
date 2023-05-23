@@ -61,7 +61,7 @@ export default {
         method: 'put',
         url: `${API_URL}/api/movies/${this.reviewId}/reviewdetail/`,
         data: modifiedReview,
-        headers: this.setToken(),
+        // headers: this.setToken(),
       })
       .then(res => {
         console.log(res)

@@ -87,7 +87,7 @@ export default {
                 content: this.content,
                 rating: this.rating,
                 recommendation: `${this.recommendation}`,
-                user: this.user,
+                // user_id: this.user,
             }
             // console.log('_'+reviewItem)
             // reviewItem에 값이 들어간다면 (입력된다면) axios 실행
@@ -99,7 +99,7 @@ export default {
                     method: 'post',
                     url: `${API_URL}/api/movies/${this.movieId}/reviewcreate/`,
                     data: reviewItem,
-                    // headers: this.setToken()
+                    headers: this.setToken()
                 })
                 .then(res => {
                     console.log(res)
