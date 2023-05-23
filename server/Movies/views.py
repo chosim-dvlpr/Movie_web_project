@@ -180,6 +180,8 @@ def review_detail(request, review_pk):
 @permission_classes([IsAuthenticated])
 def review_comment(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
+    user = review.user
+    
     if request.method == 'POST':
         serializer = CommentSerializer(data=request.data)
         print(request.data)
