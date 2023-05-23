@@ -3,19 +3,21 @@
     <h1>여기는 ReviewList</h1>
     <h2>리뷰 리스트 페이지</h2>
     <hr>    
-    <!-- <p>{{ this.reviewList[0] }}</p> -->
-    <!-- <p>{{ this.reviewList }}</p> -->
-    <span v-for="(review, index) in reviewList[0].filter((word) => word.movie === this.movieId)" :key="index">
-      <span @click="goToReviewDetail(review)">
-          <p>review id : {{ review.id }}</p>
-          <p>movie id : {{ review.movie }}</p>
-          <p>리뷰 제목 : {{ review.title }}</p>
-          <p>내용 : {{ review.content }}</p>
-          <p>평점 : {{ review.rating }}</p>
-          <p>이 영화를 추천합니다 : {{ review.recommendation }}</p>
-          <hr>
+    <!-- <span v-for="(review, index) in reviewList[0].filter((word) => word.movie === movieDetail.id)" :key="index"> -->
+    <span v-for="(review, index) in reviewList[0]" :key="index">
+      <span v-if="checkMovieId(index)">
+        <span @click="goToReviewDetail(review)">
+            <p>review id : {{ review.id }}</p>
+            <p>movie id : {{ review.movie }}</p>
+            <p>리뷰 제목 : {{ review.title }}</p>
+            <p>내용 : {{ review.content }}</p>
+            <p>평점 : {{ review.rating }}</p>
+            <p>이 영화를 추천합니다 : {{ review.recommendation }}</p>
+            <hr>
+          </span>
       </span>
     </span>
+    <p v-if="!this.checkMovieIdCount">리뷰가 없어요</p>
     <button @click="goToMovieDetail">뒤로가기</button>
   </div>
 </template>
@@ -29,22 +31,40 @@ export default {
     name: 'ReviewList',
     data() {
         return {
-            reviewList: [],
-            // reviewList: this.$route.params.reviewList
+          reviewList: [],
+          movieDetail: JSON.parse(localStorage.getItem('moviedetail')),
+          checkMovieIdCount: false,
+          // reviewList: localStorage.getItem('reviewList'),
+          // reviewList: this.$route.params.reviewList
         }
     },
     methods: {
       goToReviewDetail(review) {
         this.$router.push({ name: 'ReviewDetail', params: { id: review.id, review: review }})
+        localStorage.setItem('reviewdetail', JSON.stringify(review))
       },
       goToMovieDetail(movieId) {
         this.$router.push({ name: 'MovieDetail', params: { id: movieId, movieId: movieId }})
-      }
+      },
       
+      checkMovieId(index) {
+        // console.log(index)
+        // console.log((this.reviewList)[0][index].movie)
+        // console.log(this.movieDetail)
+        if ((this.reviewList)[0][index].movie === (this.movieDetail.id)) {
+          this.checkMovieIdCount = true
+          return true
+        }
+      },
+      checkMovieIdCountDef() {
+        this.checkMovieIdCount ++
+      }
     },
     mounted() {
       this.movieId = this.$route.params.id
       // console.log(this.id)
+    },
+    getters: {
     },
     created() {
       axios({
@@ -52,9 +72,9 @@ export default {
         url: `${API_URL}/api/movies/reviewlist/`,
       })
       .then(res => {
-          console.log(res.data)
+          // console.log('+'+res)
           this.reviewList.push(res.data)
-          // console.log(this.reviewList)
+          localStorage.setItem('reviewList', JSON.stringify(this.reviewList[0]))
       })
       .catch(err => {
           console.log(err)

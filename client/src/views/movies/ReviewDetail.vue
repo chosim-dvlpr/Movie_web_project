@@ -2,14 +2,17 @@
   <div>
     <h1>여기는 리뷰 디테일 페이지 ~ ! ^.^ </h1>
     <div>
-        <h1>review id : {{ this.reviewId }}</h1>
-        <h1>movie Id : {{ this.movieId }}</h1>
-        <p>제목 : {{ this.title }}</p>
-        <p>내용 : {{ this.content }}</p>
-        <p>평점 : {{ this.rating }}</p>
-        <p>추천 : {{ this.recommendation }}</p>
-        <button @click="modifyReview">리뷰 수정하기</button>
-        <button @click="deleteReview">리뷰 삭제하기</button>
+        <h1>review id : {{ this.review.id }}</h1>
+        <h1>movie Id : {{ this.review.movie }}</h1>
+        <p>제목 : {{ this.review.title }}</p>
+        <p>내용 : {{ this.review.content }}</p>
+        <p>평점 : {{ this.review.rating }}</p>
+        <p>추천 : {{ this.review.recommendation }}</p>
+        <div>
+            <button @click="modifyReview">리뷰 수정하기</button>
+            <button @click="deleteReview">리뷰 삭제하기</button>
+        </div>
+        <button @click="goToReviewList">뒤로가기</button>
     </div>
   </div>
 </template>
@@ -23,6 +26,8 @@ export default {
     name: 'ReviewDetail',
     data() {
         return {
+            review: JSON.parse(localStorage.getItem("reviewdetail")) || "",
+            reviewList: JSON.parse(localStorage.getItem("reviewList")) || "",
             reviewId: null,
             title: null,
             content: null,
@@ -34,15 +39,16 @@ export default {
     methods: {
         modifyReview() {
             const newReview = {
-                reviewId: this.reviewId,
-                title: this.title,
-                content: this.content,
-                rating: this.rating,
-                recommendation: this.recommendation,
-                movieId: this.movieId,
+                reviewId: this.review.id,
+                movieId: this.review.movie,
+                title: this.review.title,
+                content: this.review.content,
+                rating: this.review.rating,
+                recommendation: this.review.recommendation,
             }
-            console.log()
+            // console.log(getUserId())
             this.$router.push({ name: 'ReviewModify', params: { id: this.reviewId, review: newReview }})
+            
             // this.$emit('modify-review', newReview)
         },
         // modifyReview(review) {
@@ -71,17 +77,22 @@ export default {
             // const reviewId = this.$route.params.id;
             axios({
                 method: 'delete',
-                url: `${API_URL}/api/movies/reviewdetail/`,
+                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/`,
+                headers: this.setToken(),
             })
             .then(res => {
                 // console.log(res.data)
-                this.reviewList.remove(res.data)
+                this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
+                this.reviewList.removeItem(res.data)
                 // console.log(this.reviewList)
             })
             .catch(err => {
                 console.log(err)
             })
         },
+        goToReviewList() {
+            this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
+        }
     },
     created() {
         this.title = this.$route.params.review.title

@@ -61,11 +61,13 @@ export default {
         method: 'put',
         url: `${API_URL}/api/movies/${this.reviewId}/reviewdetail/`,
         data: modifiedReview,
+        headers: this.setToken(),
       })
       .then(res => {
         console.log(res)
         // this.$emit('submit-review', this.reviewItem)
         this.$router.push({ name: 'ReviewList', params: { id: this.movieId } })
+        localStorage.removeItem('reviewdetail')
       })
       .catch(err => {
         console.log(err)

@@ -24,6 +24,7 @@
       <!-- <button type="submit" @click="reviewCreate">작성 완료</button> -->
       <button type="submit">작성 완료</button>
     </form>
+    <p>{{ this.user }}</p>
     <hr>
     <hr>
   </div>
@@ -51,9 +52,17 @@ export default {
 
             reviewList: [],
             movieId: null,
+            user: localStorage.getItem("username")
         }
     },
     methods: {
+      setToken: function() {
+        const token = localStorage.getItem('jwt')
+        const config = {
+          Authorization: `Bearer ${token}`
+        }
+        return config
+      },
         // submitReview() {
         //   const newPost = {
         //     title: this.title,
@@ -70,12 +79,15 @@ export default {
 
         // django 연결
         reviewCreate() {
+          console.log(this.user)
             const reviewItem = {
-                movieId: this.movieId,
+                movie_id: this.movieId,
+                id: this.reviewId,
                 title: this.title,
                 content: this.content,
                 rating: this.rating,
-                recommendation: `${this.recommendation}`
+                recommendation: `${this.recommendation}`,
+                user: this.user,
             }
             // console.log('_'+reviewItem)
             // reviewItem에 값이 들어간다면 (입력된다면) axios 실행
@@ -87,6 +99,7 @@ export default {
                     method: 'post',
                     url: `${API_URL}/api/movies/${this.movieId}/reviewcreate/`,
                     data: reviewItem,
+                    // headers: this.setToken()
                 })
                 .then(res => {
                     console.log(res)

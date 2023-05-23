@@ -21,24 +21,23 @@ export default {
     data: function () {
         return {
             movieList: [],
-            test: '',
+            // test: '',
         }
     },
     methods: {
         showMovies: function() {
             axios({
                 method: 'get',
-                // url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko&page=1&sort_by=popularity.desc&api_key=${this.api_key}`
                 url: `${API_URL}/api/movies/`, // back server urls.py와 맞추기
                 // headers: this.setToken()
             })
             .then(res => {
                 this.movieList = res.data
-                console.log(this.movieList)
+                // console.log(this.movieList)
                 // localStorage.clear('movieList')
                 localStorage.setItem('movieList', JSON.stringify(this.movieList))
-                this.test = localStorage.getItem('movieList')
-                console.log(this.test+'_')
+                // this.test = localStorage.getItem('movieList')
+                // console.log(this.test+'_')
             })
             .catch(err => {
                 console.log(err)
