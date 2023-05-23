@@ -9,13 +9,14 @@
       <p>개봉일 : {{ movieDetail.release_date }}</p>
       <hr>
     </div>
+    <!-- <p @click="likeMovie">좋아요</p> -->
 
     <div>
-      <h3>리뷰 모아보기</h3>
-      <p>movieId : {{ movieDetail.id }}</p>
+      <h2>Review</h2>
+      <!-- <p>movieId : {{ movieDetail.id }}</p> -->
       <!-- 리뷰 모아보기를 버튼 말고 화면에 띄우도록 수정하기 -->
       <button @click="goToReviewList">리뷰 보기</button>
-      <button @click="goToReviewCreate">리뷰작성</button>
+      <button @click="goToReviewCreate">리뷰 작성</button>
     </div>
 
     <div>
@@ -30,7 +31,7 @@ export default {
     name: 'MovieDetail',
     data() {
       return {
-        movieDetail: JSON.parse(localStorage.getItem("moviedetail")) || "", // localStorage에 저장
+        movieDetail: JSON.parse(localStorage.getItem("moviedetail")), // localStorage에 저장
       }
     },
     methods: {
@@ -39,6 +40,7 @@ export default {
       },
       goToReviewCreate() {
         this.$router.push({ name: 'ReviewCreate', params: { id: this.movieDetail.id }})
+        // console.log(this.movieDetail.id)
       },
       goToReviewList () {
         this.$router.push({ name: 'ReviewList', params: { id: this.movieDetail.id }})

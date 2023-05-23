@@ -9,7 +9,7 @@ from rest_framework.authentication import TokenAuthentication
 
 
 from .models import Movie, Review
-from .serializers import MovieListSerializer, MovieSerializer, ReviewListSerializer, ReviewSerializer
+from .serializers import MovieListSerializer, MovieSerializer, ReviewListSerializer, ReviewSerializer, CommentSerializer
 
 import requests
 from .data import API_KEY
@@ -145,10 +145,9 @@ def review_create(request, movie_pk):
     if request.method == 'POST':
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=False):
-            print(request.user)
             serializer.save(movie=movie, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        print(serializer.errors)
+
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -175,6 +174,20 @@ def review_detail(request, review_pk):
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
+
+# 리뷰 댓글
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def review_comment(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    if request.method == 'POST':
+        serializer = CommentSerializer(data=request.data)
+        print(request.data)
+        if serializer.is_valid(raise_exception=True):
+            print('확인')
+            serializer.save(review=review, user=request.user)
+            print(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 

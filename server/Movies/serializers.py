@@ -1,10 +1,8 @@
 from rest_framework import serializers
 # from .models import Actor, Movie, Review
-from .models import Movie, Review
+from .models import Movie, Review, Comment
 from django.contrib.auth import get_user_model
-
-# from ..Accounts.models import User
-# from Accounts.models import User
+from Accounts.serializers import UserSerializer
 
 # class UserSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -20,6 +18,47 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields= '__all__'
+
+class ReviewListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Review
+        # fields = ('id', 'title', 'content',)
+        fields = '__all__'
+
+        read_only_fields = ('id','movie',)
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+
+    class MovieSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Movie
+            fields = '__all__'
+
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = get_user_model()
+            fields = '__all__'
+
+    user = UserSerializer(read_only=True)
+    movie = MovieSerializer(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = '__all__'
+        # read_only_fields = ('id','movie',)
+
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ('content','user',)
+
 
 # 첫 번째 방법
 # class MovieTitleSerializer(serializers.ModelSerializer):
@@ -49,37 +88,6 @@ class MovieSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Actor
 #         fields = ('name',)
-
-class ReviewListSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Review
-        # fields = ('id', 'title', 'content',)
-        fields = '__all__'
-
-        read_only_fields = ('id','movie',)
-
-##
-
-class ReviewSerializer(serializers.ModelSerializer):
-
-    class MovieSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Movie
-            fields = '__all__'
-
-    class UserSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = get_user_model()
-            fields = '__all__'
-
-    user = UserSerializer(read_only=True)
-    movie = MovieSerializer(read_only=True)
-
-    class Meta:
-        model = Review
-        fields = '__all__'
-        # read_only_fields = ('id','movie',)
 
 
 # class ReviewDetailSerializer(ReviewListSerializer):

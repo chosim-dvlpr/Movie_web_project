@@ -7,8 +7,8 @@
     <span v-for="(review, index) in reviewList[0]" :key="index">
       <span v-if="checkMovieId(index)">
         <span @click="goToReviewDetail(review)">
-            <p>review id : {{ review.id }}</p>
-            <p>movie id : {{ review.movie }}</p>
+            <!-- <p>review id : {{ review.id }}</p>
+            <p>movie id : {{ review.movie }}</p> -->
             <p>리뷰 제목 : {{ review.title }}</p>
             <p>내용 : {{ review.content }}</p>
             <p>평점 : {{ review.rating }}</p>
@@ -40,11 +40,13 @@ export default {
     },
     methods: {
       goToReviewDetail(review) {
+        // console.log(review.id)
         this.$router.push({ name: 'ReviewDetail', params: { id: review.id, review: review }})
         localStorage.setItem('reviewdetail', JSON.stringify(review))
       },
       goToMovieDetail(movieId) {
         this.$router.push({ name: 'MovieDetail', params: { id: movieId, movieId: movieId }})
+        // this.$router.push({ name: 'MovieDetail', params: { id: movieId }})
       },
       
       checkMovieId(index) {
