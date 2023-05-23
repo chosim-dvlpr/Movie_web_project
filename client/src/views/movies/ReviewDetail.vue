@@ -17,7 +17,9 @@
             <input type="text" v-model="comment" @keyup.enter="submitComment">
             <button @click="submitComment">작성</button>
             <div>
-                <p></p>
+                <span v-for="(commentObject, index) in this.commentList" :key="index">
+                    <p>{{ commentObject.commentItemUsername }} : {{ commentObject.content }}</p>
+                </span>
             </div>
         </div>
         <hr>
@@ -110,7 +112,21 @@ export default {
         goToReviewList() {
             this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
         },
-
+        // 댓글 불러오기
+        getComments() {
+            axios({
+                method: 'get',
+                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/comments/`,
+                headers: this.setToken(),
+            })
+            .then(res => {
+                console.log(res)
+                // this.commentList.push(newCommentItemUserName)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
         // 댓글 입력
         submitComment() {
             const newComment = {
@@ -128,14 +144,19 @@ export default {
                 const commentItem = res.data.content
                 const commentItemUsername = res.data.user.username
                 console.log(commentItemUsername)
-                this.commentList.push({ commentItemUsername: commentItem })
+                console.log(commentItem)
+                const newCommentItemUserName = {
+                    content: commentItem,
+                    commentItemUsername: commentItemUsername
+                }
+                this.commentList.push(newCommentItemUserName)
                 // console.log(res.data.content)
                 // console.log(res.data.user.username)
             })
             .catch(err => {
                 console.log(err)
             })
-        }
+        },
     },
     created() {
         // this.title = this.$route.params.review.title

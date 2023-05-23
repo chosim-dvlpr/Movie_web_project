@@ -140,7 +140,6 @@ def review_list(request):
 # # 영화정보를 불러오지만(model = Movie), 우리가 생성해야하는 데이터는 리뷰와 관련된 것(serializer의 참조 model = Review).
 @api_view(['POST'])
 def review_create(request, movie_pk):
-    # print('나는 일을 한다')
     movie = get_object_or_404(Movie, pk=movie_pk)
     if request.method == 'POST':
         serializer = ReviewSerializer(data=request.data)
@@ -161,13 +160,11 @@ def review_detail(request, review_pk):
     elif request.method == 'PUT':
         serializer = ReviewSerializer(review, data=request.data)
         if serializer.is_valid(raise_exception=True):
-            print('받음')   
             serializer.save()
             return Response(serializer.data)
-        print(serializer.errors)
+        # print(serializer.errors)
         
     elif request.method == 'DELETE':
-        print('delete')
         review.delete()
         data = {
             'delete': f'review {review_pk} is deleted'
@@ -179,14 +176,14 @@ def review_detail(request, review_pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def review_comment(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    user = review.user
-    
+    # review = get_object_or_404(Review, pk=review_pk)
+    # user = review.user
+    # if request.method == 'GET':
+    #     serializer = CommentSerializer(review, )
     if request.method == 'POST':
         serializer = CommentSerializer(data=request.data)
-        print(request.data)
+        # print(request.data)
         if serializer.is_valid(raise_exception=True):
-            print('확인')
             serializer.save(review=review, user=request.user)
             print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
