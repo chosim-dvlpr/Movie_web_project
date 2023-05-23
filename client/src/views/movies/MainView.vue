@@ -1,11 +1,13 @@
 <template>
-    <div>
-        <div v-for="movie in movieList" :key="movie.id">
-            <span @click="gotoMovieDetail(movie)">
-                <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.backdrop_path}`"><br>
-                <p>title : {{ movie.title }}</p>
-                <p>overview : {{ movie.overview }}</p>
-            </span>
+    <div class="wrapped">
+        <div class="gallery">
+            <div v-for="movie in movieList" :key="movie.id" class="content_box">
+                <span @click="gotoMovieDetail(movie)">
+                    <img :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`"><br>
+                    <p class="movie_title">title : {{ movie.title }}</p>
+                    <p class="movie_overview">overview : {{ movie.overview }}</p>
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -71,6 +73,53 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+* {
+    background-color: black;
+}
+.wrapped {
+    margin: 5px;
+}
+
+button {
+    background-color: white;
+    border: 1px solid #dbbf0f;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-end: 0px;
+}
+
+.content_box {
+    background-color: rgb(0, 0, 0);
+    width: 500px;
+}
+
+.movie_title {
+    color: #dbbf0f;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 3px;
+}
+
+.movie_overview {
+    width: 300px;
+    margin: auto;
+    color: beige;
+    background-color: rgba(128, 128, 128, 0.096);
+    text-align: center;
+}
+
+img {
+    object-fit: cover;
+    width: 300px;
+    margin-top: 50px;
+}
+
 
 </style>

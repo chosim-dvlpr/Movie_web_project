@@ -19,7 +19,8 @@ from .models import Movie
 def start_function():
     print('hello world!')
     for i in range(1, 4):
-        url = f"https://api.themoviedb.org/3/movie/popular?language=ko-KR&page={i}&without_genres=10749&api_key={API_KEY}"
+        url = f"https://api.themoviedb.org/3/movie/popular?language=ko&page={i}&without_genres=10749&api_key={API_KEY}"
+        # url = f"https://api.themoviedb.org/3/movie/popular?language=ko&page={i}&without_genres=10749&api_key={API_KEY}"
         print('letsgo')
         response = requests.get(url).json()
         movie_data = response['results']
@@ -27,7 +28,7 @@ def start_function():
 
         for movie in movie_data:
             mv=Movie(title=movie['title'],
-                backdrop_path=movie['backdrop_path'],
+                poster_path=movie['poster_path'],
                 original_language=movie['original_language'],
                 original_title=movie['original_title'],
                 overview=movie['overview'],
@@ -38,7 +39,7 @@ def start_function():
             mv.save()
         # Movie.objects.create({
         #     'adult': movie.get('adult'),
-        #     'backdrop_path': movie.get('backdrop_path'),
+        #     'poster_path': movie.get('poster_path'),
         #     'genre_ids': movie.get('genre_ids'),
         #     'id': movie.get('id'),
         #     'original_language': movie.get('original_language'),
@@ -71,7 +72,7 @@ def start_function():
 #     for movie in movie_data:
 #         Movie.objects.create({
 #             'adult': movie.get('adult'),
-#             'backdrop_path': movie.get('backdrop_path'),
+#             'poster_path': movie.get('poster_path'),
 #             # 'genre_ids': movie.get('genre_ids'),
 #             # 'id': movie.get('id'),
 #             'original_language': movie.get('original_language'),
@@ -173,20 +174,29 @@ def review_detail(request, review_pk):
 
 
 # 리뷰 댓글
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def review_comment(request, review_pk):
-    # review = get_object_or_404(Review, pk=review_pk)
-    # user = review.user
-    # if request.method == 'GET':
-    #     serializer = CommentSerializer(review, )
-    if request.method == 'POST':
+@api_view(['GET', 'POST'])
+def review_comment(request):
+    if request.method == 'GET':
+        comment = request.user.review_set.all()
+        serializer = CommentSerializer(comment, many=True)
+        return Response(serializer.data)
+    else:
         serializer = CommentSerializer(data=request.data)
-        # print(request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(review=review, user=request.user)
-            print(serializer.data)
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-
+@api_view(['PUT', 'DELETE'])
+def comment_update_delete(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if comment.user != request.user:
+        return Response({'detail': '권한없음'}, status=status.HTTP_403_FORBIDDEN)
+    if request.method == 'PUT':
+        serializer = CommentSerializer(comment, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+    else:
+        comment.delete()
+        return Response({'id': comment_pk}, status=status.HTTP_204_NO_CONTENT)

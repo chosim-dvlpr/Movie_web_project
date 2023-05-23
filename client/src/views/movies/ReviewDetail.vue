@@ -6,7 +6,7 @@
             <h1>review id : {{ this.review.id }}</h1>
             <h1>movie Id : {{ this.review.movie }}</h1>
             <p>제목 : {{ this.review.title }}</p>
-            <p>작성자 : {{ this.userName }}</p>
+            <p>작성자 : <a href="http://localhost:8080/userprofile/${this.userId}/">{{ this.userName }}</a></p>
             <p>내용 : {{ this.review.content }}</p>
             <p>평점 : {{ this.review.rating }}</p>
             <p>추천 : {{ this.review.recommendation }}</p>
@@ -64,7 +64,7 @@ export default {
         setToken: function() {
         const token = localStorage.getItem('jwt')
         const config = {
-          Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
         return config
         },
@@ -116,7 +116,7 @@ export default {
         getComments() {
             axios({
                 method: 'get',
-                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/comments/`,
+                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/commentlist/`, // 수정하기
                 headers: this.setToken(),
             })
             .then(res => {
@@ -136,20 +136,21 @@ export default {
             }
             axios({
                 method: 'post',
-                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/comments/`,
+                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/comment/`,
                 data: newComment,
                 headers: this.setToken(),
             })
             .then(res => {
                 const commentItem = res.data.content
                 const commentItemUsername = res.data.user.username
-                console.log(commentItemUsername)
-                console.log(commentItem)
+                // console.log(commentItemUsername)
+                // console.log(commentItem)
                 const newCommentItemUserName = {
                     content: commentItem,
                     commentItemUsername: commentItemUsername
                 }
                 this.commentList.push(newCommentItemUserName)
+                
                 // console.log(res.data.content)
                 // console.log(res.data.user.username)
             })
@@ -159,14 +160,7 @@ export default {
         },
     },
     created() {
-        // this.title = this.$route.params.review.title
-        // this.content = this.$route.params.review.content
-        // this.rating = this.$route.params.review.rating
-        // this.recommendation = this.$route.params.review.recommendation
-        // this.reviewId = this.$route.params.review.id
-        // console.log(this.reviewId+'여기')
-        // console.log(this.$route.params.review.id)
-        // console.log(this.reviewId)
+        this.getComments(),
         axios({
             method: 'get',
             url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/`,

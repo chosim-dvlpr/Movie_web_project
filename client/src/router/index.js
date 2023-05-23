@@ -6,6 +6,7 @@ import ReviewList from '@/views/movies/ReviewList'
 import ReviewCreate from '@/views/movies/ReviewCreate'
 import ReviewDetail from '@/views/movies/ReviewDetail'
 import ReviewModify from '@/views/movies/ReviewModify'
+import UserProfile from '@/views/movies/UserProfile'
 
 import Signup from '@/views/accounts/Signup'
 import Login from '@/views/accounts/Login'
@@ -52,6 +53,11 @@ const routes = [
     path: '/reviewmodify/:id',
     name: 'ReviewModify',
     component: ReviewModify,
+  },
+  {
+    path: '/userprofile/:id',
+    name: 'UserProfile',
+    component: UserProfile,
   },
 ]
 
