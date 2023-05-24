@@ -8,8 +8,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.http.response import JsonResponse
 
-from .models import Movie, Review, Comment
-from .serializers import MovieListSerializer, MovieSerializer, ReviewListSerializer, ReviewSerializer, CommentSerializer
+from .models import Movie, Review, Comment, Similarmovie
+from .serializers import MovieListSerializer, MovieSerializer, ReviewListSerializer, ReviewSerializer, CommentSerializer, SimilarMovieSerializer
 
 import requests
 from .data import API_KEY
@@ -40,10 +40,10 @@ def start_function():
 
 
 ## 추천 영화 API URL 통해서 데이터 불러오기
-def similar_movie():
+def similar_movie_api(request, movie_id):
     print('hello world!')
     for i in range(1, 4):
-        url = f"https://api.themoviedb.org/3/movie/movie_id/similar?language=ko&page={i}&api_key={API_KEY}"
+        url = f"https://api.themoviedb.org/3/movie/{movie_id}/similar?language=ko&page={i}&api_key={API_KEY}"
         # url = f"https://api.themoviedb.org/3/movie/popular?language=ko&page={i}&without_genres=10749&api_key={API_KEY}"
         print('letsgo')
         response = requests.get(url).json()
@@ -61,6 +61,7 @@ def similar_movie():
                 id=movie['id']
                 )
             mv.save()
+            mv.movie.add(movie_id)
 
 
 # @authentication_classes([TokenAuthentication])
@@ -199,3 +200,21 @@ def movie_like(request, movie_id):
 
 
 ## 추천 영화
+
+# @api_view(['GET'])
+# def similar_movie_list(request, movie_id):
+#     if request.method == 'GET':
+#         similarmovies = Movie.similar_movie.get(id=movie_id)
+#         # print(Movie.similar_movie.all())
+#         print('*'*100)
+#         serializer = SimilarMovieSerializer(similarmovies, many=True)
+#         similar_movie_api(request, movie_id)
+#         return Response(serializer.data)
+
+@api_view(['GET'])
+def similar_movie_list(request, movie_id):
+    if request.method == 'GET':
+        print('*'*100)
+        similarmovies = Similarmovie.objects.get(id=movie_id)
+        serializer = SimilarMovieSerializer(similarmovies)
+        return Response(serializer.data)

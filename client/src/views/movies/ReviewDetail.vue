@@ -124,9 +124,7 @@ export default {
                 headers: this.setToken(),
             })
             .then(res => {
-                console.log("***************************"+JSON.stringify(res.data))
                 this.commentList = res.data
-                console.log(this.commentList)
             })
             .catch(err => {
                 console.log(err)

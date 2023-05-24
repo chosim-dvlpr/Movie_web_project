@@ -1,17 +1,26 @@
 <template>
   <div id="app">
+    API : {{ this.API_KEY }}
+    <div class="video_box">
+      <!-- 배경 video : 랜덤 영상 재생 -->
+      <iframe :src="videoSource" frameborder="0"></iframe>
+      <!-- <div v-for="(videoKey, index) in videoKeyList" :key="index">
+        <iframe :src="videoSource" frameborder="0"></iframe>
+      </div> -->
+    </div>
     <div id="nav">
       <!-- v-if/v-else 디렉티브를 통해 로그인 여부에 따라 다른 링크들이 표시되도록 구성 -->
       <span v-if="isLogin"> 
         <div>
           <!-- router-link 는 to 다음에 목표경로 설정, a tag와 비슷한 역할 -->
-          <router-link :to="{ name: 'MainView' }">Main</router-link> | 
-          <router-link :to="{ name: 'UserProfile' }">UserProfile</router-link> | 
-          <router-link to="#" @click.native="logout">Logout</router-link> 
-          <!--.native : 현재 컴포넌트에 요청을 보내기 위해 사용 -->
+          <router-link :to="{ name: 'MainView' }">Main</router-link> |
+          <!-- <router-link :to="{ name: 'UserProfile' }">UserProfile</router-link> -->
         </div>
-        <div>
+        <div class="hello_user">
           <p>{{ userName }}님, 안녕하세요!</p>
+          <router-link :to="{ name: 'UserProfile' }">Profile</router-link>
+          <!--.native : 현재 컴포넌트에 요청을 보내기 위해 사용 -->
+          <router-link to="#" @click.native="logout">Logout</router-link> 
         </div>
       </span>
       <span v-else>
@@ -24,7 +33,11 @@
 </template>
 
 <script>
+import axios from 'axios'
+import api_key from './data'
 
+const API_KEY = api_key.API_KEY
+const URL = 'https://www.googleapis.com/youtube/v3/search'
 
 export default {
   name: 'App',
@@ -32,6 +45,8 @@ export default {
     return {
       isLogin: false,
       userName: localStorage.getItem('username'),
+      videoKeyList: ['a8Gx8wiNbs8', '0-wPm99PF9U'],
+      videoKey: '',
     }
   },
   methods: {
@@ -39,15 +54,42 @@ export default {
       this.isLogin = false                // isLogin 을 false 로 설정.
       localStorage.removeItem('jwt')      // 로컬스토리지에서 jwt 제거
       this.$router.push({ name: 'Login' })  // 로그인 페이지로 이동
-    }
+    },
+    // 유튜브 video
+    getVideo() {
+      axios({
+        method: 'get',
+        url: URL,
+        params: {
+          key: API_KEY,
+          type: 'video',
+          part: 'id',
+          Id: 'a8Gx8wiNbs8',
+        }
+      })
+      .then(res => {
+        console.log(res)
+        // console.log(response.data.items[0].id.videoId)
+        // this.selectedVideo = response.data.items[0]
+      })
+      .catch(err => console.log(err))
+    },
+    // videoSource() {
+    //   return `https://youtube.com/embed/${}`
+    // },
   },
   created () {                        // 앱이 생성될떄 호출되는 함수 정의(라이프사이클훅)
     const token = localStorage.getItem('jwt')   // 로컬스토리지에서 jwt(JSON Web Token을 나타내며, 로그인한 사용자를 인증하는 데 사용되는 토큰) 값을 가져와서 token이라는 변수에 할당.
     if (token) {                                // 토큰에 값이 있다면
       this.isLogin = true                       // isLogin 을 false 에서 true 로 변환     
     }
+
+    this.getVideo()
+
+    
   },
 }
+
 </script>
 
 
@@ -74,5 +116,17 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #fde512;
+}
+
+.hello_user {
+  display: flex;
+  margin-bottom: 0px;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.video_box {
+  
+  background-color: red;
 }
 </style>

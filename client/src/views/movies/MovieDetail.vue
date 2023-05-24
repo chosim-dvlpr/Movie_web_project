@@ -12,6 +12,7 @@
             <p>Title : {{ movieDetail.title }}</p>
             <p>개요 : {{ movieDetail.overview }}</p>
             <p>개봉일 : {{ movieDetail.release_date }}</p>
+            <router-link :to="{ name: 'RequestMovie' }">RequestMovie</router-link>
           </div>
         </div>
       </div>
@@ -100,6 +101,8 @@ export default {
 </script>
 
 <style>
+/* @import 'material-icons/iconfont/material-icons.css'; */
+
 .content_box {
   }
 
@@ -115,5 +118,13 @@ img {
 .detail_box {
   display: flex;
   flex-direction: column;
+}
+
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }
 </style>

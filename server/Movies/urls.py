@@ -25,5 +25,5 @@ urlpatterns = [
     path('<int:movie_id>/like/', views.movie_like),
 
     ##추천 영화
-    path('similarmovie/', views.similar_movie),
+    path('<int:movie_id>/similarmovie/', views.similar_movie_list),
 ]

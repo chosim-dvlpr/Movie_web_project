@@ -8,7 +8,7 @@
         </div>
         <!-- profile 주인의 정보와 접속한 사람의 정보가 다르다면 팔로우 버튼 표시 -->
         <!-- 팔로우하지 않은 상태라면 팔로우하기 버튼을, 팔로우한 상태라면 팔로잉 취소 버튼 -->
-        <div v-if="this.isUser">
+        <div v-if="!this.isUser">
             <span v-if="!isFollowing">
                 <button @click="clickFollow">팔로우하기</button>
             </span>

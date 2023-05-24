@@ -2,6 +2,7 @@
 node_modules
 /dist
 data.js
+youtube_data.js
 
 
 # local env files

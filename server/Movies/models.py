@@ -52,7 +52,7 @@ class Comment(models.Model):
 
 
 ## 추천영화
-class Similarmovie(models.Modle):
+class Similarmovie(models.Model):
     adult = models.CharField(max_length=20, null=True)
     backdrop_path = models.TextField(null=True)
     original_language = models.CharField(max_length=100, null=True)
@@ -65,4 +65,5 @@ class Similarmovie(models.Modle):
     video = models.CharField(null=True, max_length=20)
     vote_average = models.FloatField(null=True)
     vote_count = models.IntegerField(null=True)
+    movie = models.ManyToManyField(Movie, related_name='similar_movie')
     # like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')

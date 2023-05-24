@@ -2,11 +2,15 @@
     <div class="wrapped">
         <div class="gallery">
             <div v-for="movie in movieList" :key="movie.id" class="content_box">
-                <span @click="gotoMovieDetail(movie)">
-                    <img :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`"><br>
-                    <p class="movie_title">title : {{ movie.title }}</p>
-                    <p class="movie_overview">overview : {{ movie.overview }}</p>
-                </span>
+                <div @click="gotoMovieDetail(movie)" class="movie_box">
+                    <div class="img_box">
+                        <img class="img_box_img" :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`"><br>
+                    </div>
+                    <div class="content_box_detail">
+                        <p class="movie_title">{{ movie.title }}</p>
+                        <!-- <p class="movie_overview">{{ movie.overview }}</p> -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -97,6 +101,7 @@ button {
 .content_box {
     background-color: rgb(0, 0, 0);
     width: 500px;
+    display: flex;
 }
 
 .movie_title {
@@ -114,11 +119,34 @@ button {
     text-align: center;
 }
 
-img {
-    object-fit: cover;
-    width: 300px;
-    margin-top: 50px;
+.img_box {
+    margin-left: 20px;
 }
 
+.img_box_img {
+    object-fit: cover;
+    width: 350px;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    transition-delay: 0.1s;
+    transition-duration: 1s;
+}
+
+.img_box_img:hover {
+    width: 370px;
+}
+
+.content_box_detail {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+}
+
+.movie_box {
+    display: flex;
+    flex-direction: column;
+}
 
 </style>

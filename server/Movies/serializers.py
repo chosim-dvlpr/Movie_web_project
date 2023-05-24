@@ -66,7 +66,7 @@ from .models import Similarmovie
 class SimilarMovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Similarmovie
-        fields = '__all__'
+        fields = ('title',)
 
 # 첫 번째 방법
 # class MovieTitleSerializer(serializers.ModelSerializer):
