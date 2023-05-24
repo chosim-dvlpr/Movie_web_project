@@ -124,20 +124,36 @@ def review_comment(request, review_pk):
             serializer.save(review=review, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
-@api_view(['PUT', 'DELETE'])
-def comment_update_delete(request, comment_pk):
+@api_view(['DELETE'])
+def comment_delete(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
-    if comment.user != request.user:
-        return Response({'detail': '권한없음'}, status=status.HTTP_403_FORBIDDEN)
-    if request.method == 'PUT':
-        serializer = CommentSerializer(comment, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-    else:
+    print('실행')
+    if request.method == 'DELETE':
         comment.delete()
-        return Response({'id': comment_pk}, status=status.HTTP_204_NO_CONTENT)
+        return Response({ 'id': comment_pk }, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+def comment_list(request, review_pk):
+    if request.method == 'GET':
+        comments = Comment.objects.filter(review_id=review_pk)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+    
+#     if request.method == 'DELETE':
+
+# @api_view(['PUT', 'DELETE'])
+# def comment_update_delete(request, comment_pk):
+#     comment = get_object_or_404(Comment, pk=comment_pk)
+#     if comment.user != request.user:
+#         return Response({'detail': '권한없음'}, status=status.HTTP_403_FORBIDDEN)
+#     if request.method == 'PUT':
+#         serializer = CommentSerializer(comment, data=request.data)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             return Response(serializer.data)
+#     else:
+#         comment.delete()
+#         return Response({'id': comment_pk}, status=status.HTTP_204_NO_CONTENT)
 
 
 # 영화 좋아요
@@ -155,3 +171,5 @@ def movie_like(request, movie_id):
         'isLike': is_like, 
         'likeCount': movie.like_users.count() }
     return JsonResponse(response)
+
+

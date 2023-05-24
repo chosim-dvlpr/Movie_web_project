@@ -55,7 +55,8 @@ const routes = [
     component: ReviewModify,
   },
   {
-    path: '/userprofile/:id',
+    // path: '/userprofile/:id',
+    path: '/userprofile',
     name: 'UserProfile',
     component: UserProfile,
   },

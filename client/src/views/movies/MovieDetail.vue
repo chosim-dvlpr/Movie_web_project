@@ -4,13 +4,15 @@
     <h2>영화 디테일을 볼 수 있는 페이지</h2>
     <div>
       <div class="content_box">
-        <div class="img_box">
-          <img :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetail.poster_path}`">
-        </div>
-        <div class="detail_box">
-          <p>Title : {{ movieDetail.title }}</p>
-          <p>개요 : {{ movieDetail.overview }}</p>
-          <p>개봉일 : {{ movieDetail.release_date }}</p>
+        <div>
+          <div class="img_box">
+            <img :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetail.poster_path}`">
+          </div>
+          <div class="detail_box">
+            <p>Title : {{ movieDetail.title }}</p>
+            <p>개요 : {{ movieDetail.overview }}</p>
+            <p>개봉일 : {{ movieDetail.release_date }}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -17,8 +17,9 @@
             <input type="text" v-model="comment" @keyup.enter="submitComment">
             <button @click="submitComment">작성</button>
             <div>
-                <span v-for="(commentObject, index) in this.commentList" :key="index">
-                    <p>{{ commentObject.commentItemUsername }} : {{ commentObject.content }}</p>
+                <span v-for="commentObject in this.commentList" :key="commentObject.id">
+                    <p>{{ commentObject.user.username }} : {{ commentObject.content }}
+                    <button @click="deleteComment(commentObject.id)">삭제</button></p>
                 </span>
             </div>
         </div>
@@ -60,6 +61,9 @@ export default {
             commentList: [],
         }
     },
+    // mounted() {
+    //     this.getComments()
+    // },
     methods: {
         setToken: function() {
         const token = localStorage.getItem('jwt')
@@ -116,12 +120,13 @@ export default {
         getComments() {
             axios({
                 method: 'get',
-                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/commentlist/`, // 수정하기
+                url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/commentlist/`,
                 headers: this.setToken(),
             })
             .then(res => {
-                console.log(res)
-                // this.commentList.push(newCommentItemUserName)
+                console.log("***************************"+JSON.stringify(res.data))
+                this.commentList = res.data
+                console.log(this.commentList)
             })
             .catch(err => {
                 console.log(err)
@@ -131,8 +136,6 @@ export default {
         submitComment() {
             const newComment = {
                 content: this.comment,
-                // review_id: this.review.id,
-                // user_id: this.userId,
             }
             axios({
                 method: 'post',
@@ -142,26 +145,48 @@ export default {
             })
             .then(res => {
                 const commentItem = res.data.content
-                const commentItemUsername = res.data.user.username
-                // console.log(commentItemUsername)
-                // console.log(commentItem)
+                const user = { "username" : res.data.user.username }
                 const newCommentItemUserName = {
                     content: commentItem,
-                    commentItemUsername: commentItemUsername
+                    user: user
                 }
                 this.commentList.push(newCommentItemUserName)
-                
-                // console.log(res.data.content)
-                // console.log(res.data.user.username)
+                this.comment = ''
+                this.getComments()
             })
             .catch(err => {
                 console.log(err)
             })
         },
 
+        // 댓글 삭제
+        deleteComment(comment_pk) {
+            // if (this.userName === this.currentUserName) {
+                axios({
+                    method: 'delete',
+                    url: `${API_URL}/api/movies/comment/${comment_pk}`,
+                    // headers: this.setToken(),
+                })
+                .then(() => {
+                    alert('리뷰가 삭제되었습니다!')
+                    // console.log(res)
+                    // this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
+                    // this.commentList.removeItem(res.data)
+
+                    console.log(this.commentList)
+                    this.getComments()
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            // } else {
+            //     alert('삭제할 수 없습니다!')
+            // }
+        },
+
         // 프로필로 이동
         goToProfile() {
-            this.$router.push({ name: 'UserProfile', params: { id: this.userName }})
+            this.$router.push({ name: 'UserProfile' })
         },
     },
     created() {
@@ -171,18 +196,10 @@ export default {
             url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/`,
         })
         .then(res => {
-            this.movieId = res.data.movie.id
-            this.userName = res.data.user.username
-            this.userId = res.data.user.id
-            // this.reviewId = res.data.id
-            // this.title = res.data.title
-            // this.content = res.data.content
-            // this.rating = res.data.rating
-            // this.recommendation = res.data.recommendation
-
-            // console.log(res)
-            // this.reviewList.push(res.data)
-            // console.log(this.reviewList)
+            // console.log('_'+JSON.stringify(res.data.user.username))
+            this.movieId = JSON.stringify(res.data.movie.id)
+            this.userName = JSON.stringify(res.data.user.username).replace(/"/g, '')
+            this.userId = JSON.stringify(res.data.user.id)
         })
         .catch(err => {
             console.log(err)

@@ -28,7 +28,7 @@ export default {
     name: 'UserProfile',
     data() {
         return {
-            userName: null,
+            userName: localStorage.getItem('username'),
             userId: null,
             currentUserName: localStorage.getItem('username'),
             currentUserId: localStorage.getItem('userId'),
@@ -91,7 +91,7 @@ export default {
         if (this.userId !== this.currentUserId) {
             this.isUser = true
         }
-        this.userName = this.$route.params.id
+        // this.userName = this.$route.params.id
     },
 }
 </script>
