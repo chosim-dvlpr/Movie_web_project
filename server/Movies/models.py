@@ -49,3 +49,20 @@ class Comment(models.Model):
     content = models.TextField()
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+## 추천영화
+class Similarmovie(models.Modle):
+    adult = models.CharField(max_length=20, null=True)
+    backdrop_path = models.TextField(null=True)
+    original_language = models.CharField(max_length=100, null=True)
+    original_title = models.CharField(max_length=100, null=True)
+    overview = models.TextField(null=True)
+    popularity = models.FloatField(null=True)
+    poster_path = models.TextField(null=True)
+    release_date = models.CharField(null=True, max_length=50)
+    title = models.CharField(max_length=100, null=True)
+    video = models.CharField(null=True, max_length=20)
+    vote_average = models.FloatField(null=True)
+    vote_count = models.IntegerField(null=True)
+    # like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')

@@ -38,6 +38,31 @@ def start_function():
                 )
             mv.save()
 
+
+## 추천 영화 API URL 통해서 데이터 불러오기
+def similar_movie():
+    print('hello world!')
+    for i in range(1, 4):
+        url = f"https://api.themoviedb.org/3/movie/movie_id/similar?language=ko&page={i}&api_key={API_KEY}"
+        # url = f"https://api.themoviedb.org/3/movie/popular?language=ko&page={i}&without_genres=10749&api_key={API_KEY}"
+        print('letsgo')
+        response = requests.get(url).json()
+        movie_data = response['results']
+        # data = []
+
+        for movie in movie_data:
+            mv=Movie(title=movie['title'],
+                poster_path=movie['poster_path'],
+                original_language=movie['original_language'],
+                original_title=movie['original_title'],
+                overview=movie['overview'],
+                release_date=movie['release_date'],
+                vote_average=movie['vote_average'],
+                id=movie['id']
+                )
+            mv.save()
+
+
 # @authentication_classes([TokenAuthentication])
 @api_view(['GET'])
 def movie_list(request):
@@ -173,3 +198,4 @@ def movie_like(request, movie_id):
     return JsonResponse(response)
 
 
+## 추천 영화
