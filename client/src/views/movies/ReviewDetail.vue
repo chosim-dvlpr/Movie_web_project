@@ -6,7 +6,7 @@
             <h1>review id : {{ this.review.id }}</h1>
             <h1>movie Id : {{ this.review.movie }}</h1>
             <p>제목 : {{ this.review.title }}</p>
-            <p>작성자 : <a href="http://localhost:8080/userprofile/${this.userId}/">{{ this.userName }}</a></p>
+            <p>작성자 : <span @click="goToProfile">{{ this.userName }}</span></p>
             <p>내용 : {{ this.review.content }}</p>
             <p>평점 : {{ this.review.rating }}</p>
             <p>추천 : {{ this.review.recommendation }}</p>
@@ -157,6 +157,11 @@ export default {
             .catch(err => {
                 console.log(err)
             })
+        },
+
+        // 프로필로 이동
+        goToProfile() {
+            this.$router.push({ name: 'UserProfile', params: { id: this.userName }})
         },
     },
     created() {

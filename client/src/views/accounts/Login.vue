@@ -38,27 +38,40 @@ export default {
       .then((res) => {
         // console.log(res.config)
         localStorage.setItem("jwt", res.data.access)
+        this.getUser()
         this.$emit('login')
         this.$router.push({ name: 'MainView' })
       })
       .catch((err) => {
         console.log(err)
       })
-
+    },
+    getUser() {
       // server에서 user 정보를 불러옴
       axios({
         method: 'get',
         url: `${API_URL}/accounts/login/`,
+        headers: this.setToken(),
       })
       .then((res) => {
         // console.log(res.data.userId)
+        localStorage.removeItem("username")
+        localStorage.removeItem("userId")
+        console.log(res.data.username)
         localStorage.setItem("username", res.data.username)
         localStorage.setItem("userId", res.data.userId)
       })
       .catch((err) => {
         console.log(err)
       })
-    }
+      },
+      setToken: function() {
+        const token = localStorage.getItem('jwt')
+        const config = {
+            Authorization: `Bearer ${token}`
+        }
+        return config
+      },
   }
 }
     

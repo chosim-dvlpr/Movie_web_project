@@ -11,18 +11,19 @@
           <p>Title : {{ movieDetail.title }}</p>
           <p>개요 : {{ movieDetail.overview }}</p>
           <p>개봉일 : {{ movieDetail.release_date }}</p>
-          <hr>
         </div>
       </div>
     </div>
     <div>
-      <div v-if="this.isLike">
+      <div v-if="!this.isLike">
         <button @click="likeMovie">좋아요</button>
       </div>
       <div v-else>
         <button @click="likeMovie">좋아요 취소</button>
       </div>
     </div>
+    <hr>
+
     <div>
       <h2>Review</h2>
       <!-- <p>movieId : {{ movieDetail.id }}</p> -->

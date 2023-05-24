@@ -1,12 +1,18 @@
 <template>
   <div id="app">
     <div id="nav">
-      <span v-if="isLogin"> <!-- v-if/v-else 디렉티브를 통해 로그인 여부에 따라 다른 링크들이 표시되도록 구성 -->
-        <!-- router-link 는 to 다음에 목표경로 설정, a tag와 비슷한 역할 -->
-        <router-link :to="{ name: 'MainView' }">Main</router-link> | 
-        <router-link :to="{ name: 'UserProfile' }">UserProfile</router-link> | 
-        <router-link to="#" @click.native="logout">Logout</router-link> 
-        <!--.native : 현재 컴포넌트에 요청을 보내기 위해 사용 -->
+      <!-- v-if/v-else 디렉티브를 통해 로그인 여부에 따라 다른 링크들이 표시되도록 구성 -->
+      <span v-if="isLogin"> 
+        <div>
+          <!-- router-link 는 to 다음에 목표경로 설정, a tag와 비슷한 역할 -->
+          <router-link :to="{ name: 'MainView' }">Main</router-link> | 
+          <router-link :to="{ name: 'UserProfile' }">UserProfile</router-link> | 
+          <router-link to="#" @click.native="logout">Logout</router-link> 
+          <!--.native : 현재 컴포넌트에 요청을 보내기 위해 사용 -->
+        </div>
+        <div>
+          <p>{{ userName }}님, 안녕하세요!</p>
+        </div>
       </span>
       <span v-else>
         <router-link :to="{ name: 'Signup' }">Signup</router-link> |
@@ -25,6 +31,7 @@ export default {
   data: function () {
     return {
       isLogin: false,
+      userName: localStorage.getItem('username'),
     }
   },
   methods: {
