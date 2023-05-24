@@ -23,7 +23,6 @@ export default {
     data: function () {
         return {
             movieList: [],
-            // test: '',
         }
     },
     methods: {

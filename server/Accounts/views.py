@@ -1,9 +1,11 @@
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .serializers import UserSerializer 
+from .serializers import UserSerializer, UserIdSerializer
 from rest_framework.permissions import AllowAny
 
+from .models import User
+from django.shortcuts import get_object_or_404
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -23,3 +25,12 @@ def signup(request):
         user.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+@api_view(['GET'])
+def login(request):
+    if request.method == 'GET':
+        info = get_object_or_404(User)
+        serializer = UserIdSerializer(info)
+        return Response({
+            'userId': serializer.data['id'],
+            'username': serializer.data['username'],
+        })

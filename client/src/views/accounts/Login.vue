@@ -16,6 +16,8 @@
 <script>
 import axios from 'axios'
 
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name: 'Login',
   data: function () {
@@ -30,16 +32,28 @@ export default {
     login: function () {
       axios({
         method: 'post',
-        url: "http://127.0.0.1:8000/api/token/",
+        url: `${API_URL}/api/token/`,
         data: this.userdata, 
       })
-
       .then((res) => {
+        // console.log(res.config)
         localStorage.setItem("jwt", res.data.access)
-        localStorage.setItem("username", JSON.parse(res.config.data).username)
-        // console.log(JSON.parse(res.config.data).username)
         this.$emit('login')
         this.$router.push({ name: 'MainView' })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+      // server에서 user 정보를 불러옴
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/login/`,
+      })
+      .then((res) => {
+        // console.log(res.data.userId)
+        localStorage.setItem("username", res.data.username)
+        localStorage.setItem("userId", res.data.userId)
       })
       .catch((err) => {
         console.log(err)

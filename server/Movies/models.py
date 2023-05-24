@@ -28,6 +28,7 @@ class Movie(models.Model):
     video = models.CharField(null=True, max_length=20)
     vote_average = models.FloatField(null=True)
     vote_count = models.IntegerField(null=True)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
 
 
 class Review(models.Model):
@@ -41,7 +42,7 @@ class Review(models.Model):
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
+    
 
 
 class Comment(models.Model):

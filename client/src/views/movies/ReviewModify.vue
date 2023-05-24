@@ -55,7 +55,6 @@ export default {
         movieId: this.movieId,
         reviewId: this.reviewId,
       }
-      console.log('_'+this.reviewId)
 
       axios({
         method: 'put',
@@ -64,9 +63,8 @@ export default {
         // headers: this.setToken(),
       })
       .then(res => {
-        console.log(res)
-        // this.$emit('submit-review', this.reviewItem)
-        this.$router.push({ name: 'ReviewList', params: { id: this.movieId } })
+        // console.log(res.data.id) // movie id
+        this.$router.push({ name: 'ReviewList', params: { id: res.data.id } })
         localStorage.removeItem('reviewdetail')
       })
       .catch(err => {
@@ -83,7 +81,7 @@ export default {
     this.rating = this.review.rating
     this.recommendation = this.review.recommendation
     this.reviewId = this.$route.params.review.reviewId
-    console.log(this.review)
+    // console.log(this.review)
   }
 }
 </script>

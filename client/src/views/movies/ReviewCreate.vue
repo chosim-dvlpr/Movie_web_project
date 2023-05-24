@@ -26,6 +26,7 @@
     </form>
     <p>{{ this.user }}</p>
     <hr>
+    <button @click="goToMovieDetail">뒤로가기</button>
     <hr>
   </div>
 </template>
@@ -39,19 +40,13 @@ export default {
     name: 'ReviewCreate',
     data() {
         return {
-            // post: {
-            //     title: '',
-            //     content: '',
-            //     rating: null,
-            //     recommendation: false
-            // },
             title: null,
             content: null,
             rating: null,
             recommendation: null,
 
             reviewList: [],
-            movieId: null,
+            movieId: JSON.parse(localStorage.getItem("moviedetail")).id,
             user: localStorage.getItem("username")
         }
     },
@@ -63,62 +58,50 @@ export default {
         }
         return config
       },
-        // submitReview() {
-        //   const newPost = {
-        //     title: this.title,
-        //     content: this.content,
-        //     rating: this.rating,
-        //     recommendation: this.recommendation
-        //   }
-
-        //   console.log(this.$route.params.movieId)
-        //   this.reviewList.push(newPost)
-        //   this.$emit('submit-review', this.reviewList)
-        //   this.$router.push({ name: 'ReviewList', params: { id: this.movieId } })
-        // },
-
-        // django 연결
-        reviewCreate() {
-          // console.log(this.user)
-            const reviewItem = {
-                movie_id: this.movieId,
-                id: this.reviewId,
-                title: this.title,
-                content: this.content,
-                rating: this.rating,
-                recommendation: `${this.recommendation}`,
-                user_id: this.user,
-            }
-            // console.log('_'+reviewItem)
-            // reviewItem에 값이 들어간다면 (입력된다면) axios 실행
-            if (reviewItem.title) {
-                // console.log('axios 실행')
-                // this.newPost.push(reviewItem)
-                // console.log(this.newPost)
-                axios({
-                    method: 'post',
-                    url: `${API_URL}/api/movies/${this.movieId}/reviewcreate/`,
-                    data: reviewItem,
-                    headers: this.setToken()
-                })
-                .then(res => {
-                    console.log(res)
-                    // this.$emit('submit-review', this.reviewItem)
-                    this.$router.push({ name: 'ReviewList', params: { id: res.data.movie.id } })
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-            } else {
-                alert('내용을 입력해주세요.')
-            }
-        }
+      // 리뷰 작성
+      reviewCreate() {
+        // console.log(this.user)
+          const reviewItem = {
+              movie_id: this.movieId,
+              id: this.reviewId,
+              title: this.title,
+              content: this.content,
+              rating: this.rating,
+              recommendation: `${this.recommendation}`,
+              user_id: this.user,
+          }
+          // console.log('_'+reviewItem)
+          // reviewItem에 값이 들어간다면 (입력된다면) axios 실행
+          if (reviewItem.title) {
+              // console.log('axios 실행')
+              // this.newPost.push(reviewItem)
+              // console.log(this.newPost)
+              axios({
+                  method: 'post',
+                  url: `${API_URL}/api/movies/${this.movieId}/reviewcreate/`,
+                  data: reviewItem,
+                  headers: this.setToken()
+              })
+              .then(res => {
+                  this.movieId = res.data.movie.id
+                  this.$router.push({ name: 'ReviewList', params: { id: this.movieId } })
+              })
+              .catch(err => {
+                  console.log(err)
+              })
+          } else {
+              alert('내용을 입력해주세요.')
+          }
+      },
+      // 영화 리스트로 돌아가기
+      goToMovieDetail() {
+        this.$router.push({ name: 'MovieDetail', params: { id: this.movieId, movieId: this.movieId }})
+      },
     },
 
     // 데이터 받기
     created() {
-      this.movieId = this.$route.params.id
-      // console.log(this.movieId)
+      // this.movieId = this.$route.params.id
     }
 }
 </script>

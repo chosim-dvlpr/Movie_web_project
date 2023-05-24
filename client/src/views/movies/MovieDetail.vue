@@ -15,8 +15,14 @@
         </div>
       </div>
     </div>
-    <!-- <p @click="likeMovie">좋아요</p> -->
-
+    <div>
+      <div v-if="this.isLike">
+        <button @click="likeMovie">좋아요</button>
+      </div>
+      <div v-else>
+        <button @click="likeMovie">좋아요 취소</button>
+      </div>
+    </div>
     <div>
       <h2>Review</h2>
       <!-- <p>movieId : {{ movieDetail.id }}</p> -->
@@ -32,12 +38,16 @@
 </template>
 
 <script>
+import axios from 'axios'
+
+const API_URL = 'http://127.0.0.1:8000'
 
 export default {
     name: 'MovieDetail',
     data() {
       return {
         movieDetail: JSON.parse(localStorage.getItem("moviedetail")), // localStorage에 저장
+        isLike: false,
       }
     },
     methods: {
@@ -50,6 +60,27 @@ export default {
       },
       goToReviewList () {
         this.$router.push({ name: 'ReviewList', params: { id: this.movieDetail.id }})
+      },
+      setToken: function() {
+        const token = localStorage.getItem('jwt')
+        const config = {
+            Authorization: `Bearer ${token}`
+        }
+        return config
+      },
+      likeMovie() {
+        axios({
+            method: 'post',
+            url: `${API_URL}/api/movies/${this.movieDetail.id}/like/`,
+            data: this.movieDetail.id,
+            headers: this.setToken()
+        })
+        .then(res => {
+            this.isLike = res.data.isLike
+        })
+        .catch(err => {
+            console.log(err)
+        })  
       }
     },
     created() {

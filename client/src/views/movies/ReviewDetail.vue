@@ -96,15 +96,15 @@ export default {
                 })
                 .then(res => {
                     // console.log(res.data)
+                    alert('리뷰가 삭제되었습니다!')
                     this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
                     this.reviewList.removeItem(res.data)
-                    // console.log(this.reviewList)
                 })
                 .catch(err => {
                     console.log(err)
                 })
             } else {
-                alert('수정할 수 없습니다!')
+                alert('삭제할 수 없습니다!')
             }
         },
 

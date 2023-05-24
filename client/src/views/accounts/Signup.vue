@@ -20,7 +20,8 @@
 <script>
 import axios from 'axios' 
 
-// CONST BASE_URL = "http://127.0.0.8000/accounts/signup/"
+const API_URL = "http://127.0.0.1:8000"
+
 export default {
   name: 'Signup', 
   data: function () {
@@ -36,7 +37,7 @@ export default {
     signup: function () {
       axios({
         method: 'post',
-        url: "http://127.0.0.1:8000/accounts/signup/",
+        url: `${API_URL}/accounts/signup/`,
         data: this.userdata, 
       })
       .then(() => {

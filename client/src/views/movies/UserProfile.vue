@@ -8,7 +8,7 @@
         </div>
         <!-- profile 주인의 정보와 접속한 사람의 정보가 다르다면 팔로우 버튼 표시 -->
         <!-- 팔로우하지 않은 상태라면 팔로우하기 버튼을, 팔로우한 상태라면 팔로잉 취소 버튼 -->
-        <div v-if="!isUser">
+        <div v-if="!this.isUser">
             <div v-if="!isFollowing">
                 <button>팔로우하기</button>
             </div>
@@ -30,7 +30,9 @@ export default {
         return {
             username: null,
             userId: null,
-            // currentUserId: localStorage.getItem('username'),
+            currentUserName: localStorage.getItem('username'),
+            currentUserId: null,
+            isUser: false,
         }
     },
     methods: {
@@ -38,7 +40,7 @@ export default {
         getUser() {
             axios({
                 method: 'get',
-                url: `${API_URL}/`,
+                url: `${API_URL}/accounts/${this.username}/`,
                 headers: this.setToken(),
             })
             .then(res => {
@@ -47,18 +49,17 @@ export default {
                 console.log(err)
             })
         },
-        // profile 주인의 정보와 접속한 사람의 정보 확인
-        // 정보가 같다면 true, 다르다면 false
-        isUser() {
-            if ( this.userId === this.currentUserId) {
-                return true
-            } else {
-                return false
-            }
-        }
     },
     created() {
         this.getUser()
+        
+        // 프로필 주인 정보와 접속한 사람의 정보 확인
+        // 정보가 같다면 true, 다르다면 false
+        if (this.userId === this.currentUserId) {
+            return true
+        } else {
+            return false
+        }
     },
 }
 </script>

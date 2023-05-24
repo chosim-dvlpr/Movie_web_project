@@ -6,9 +6,9 @@ from rest_framework.decorators import permission_classes
 from rest_framework.decorators import authentication_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from django.http.response import JsonResponse
 
-
-from .models import Movie, Review
+from .models import Movie, Review, Comment
 from .serializers import MovieListSerializer, MovieSerializer, ReviewListSerializer, ReviewSerializer, CommentSerializer
 
 import requests
@@ -37,58 +37,7 @@ def start_function():
                 id=movie['id']
                 )
             mv.save()
-        # Movie.objects.create({
-        #     'adult': movie.get('adult'),
-        #     'poster_path': movie.get('poster_path'),
-        #     'genre_ids': movie.get('genre_ids'),
-        #     'id': movie.get('id'),
-        #     'original_language': movie.get('original_language'),
-        #     'original_title': movie.get('original_title'),
-        #     'overview': movie.get('overview'),
-        #     'popularity': movie.get('popularity'),
-        #     'poster_path': movie.get('poster_path'),
-        #     'release_date': movie.get('release_date'),
-        #     'title': movie.get('title'),
-        #     'video': movie.get('video'),
-        #     'vote_average': movie.get('vote_average'),
-        #     'vote_count': movie.get('vote_count'),
-        # })
 
-
-
-
-
-
-# def api_movie():
-#     print('*********************')
-#     url = f"https://api.themoviedb.org/3/movie/popular?language=ko&page=1&api_key={API_KEY}"
-
-#     response = requests.get(url).json()
-#     movie_data = response.get('results')
-#     # data = []
-
-#     # Movie = Movies.get_model('Movies', 'Movie')
-
-#     for movie in movie_data:
-#         Movie.objects.create({
-#             'adult': movie.get('adult'),
-#             'poster_path': movie.get('poster_path'),
-#             # 'genre_ids': movie.get('genre_ids'),
-#             # 'id': movie.get('id'),
-#             'original_language': movie.get('original_language'),
-#             'original_title': movie.get('original_title'),
-#             'overview': movie.get('overview'),
-#             'popularity': movie.get('popularity'),
-#             'poster_path': movie.get('poster_path'),
-#             'release_date': movie.get('release_date'),
-#             'title': movie.get('title'),
-#             'video': movie.get('video'),
-#             'vote_average': movie.get('vote_average'),
-#             'vote_count': movie.get('vote_count'),
-#         })
-
-
-#3
 # @authentication_classes([TokenAuthentication])
 @api_view(['GET'])
 def movie_list(request):
@@ -96,11 +45,6 @@ def movie_list(request):
         movies = get_list_or_404(Movie)
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
-
-# import requests
-# import json
-
-# Create your views here.
 
 # @api_view(['GET'])
 # def actor_list(request):
@@ -116,8 +60,6 @@ def movie_list(request):
 #     return Response(serializer.data)
 
 
-
-#4
 @authentication_classes([TokenAuthentication])
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
@@ -126,7 +68,7 @@ def movie_detail(request, movie_pk):
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
 
-# 1
+
 # 전체 리뷰를 조회하는 함수
 # ReviewListSerializer 사용
 @api_view(['GET'])
@@ -136,9 +78,7 @@ def review_list(request):
         serializer = ReviewListSerializer(reviews, many=True)
         return Response(serializer.data)
 
-# #2
-# # 특정 영화에 들어가서 댓글을 작성하는 함수.
-# # 영화정보를 불러오지만(model = Movie), 우리가 생성해야하는 데이터는 리뷰와 관련된 것(serializer의 참조 model = Review).
+
 @api_view(['POST'])
 def review_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
@@ -147,7 +87,6 @@ def review_create(request, movie_pk):
         if serializer.is_valid(raise_exception=False):
             serializer.save(movie=movie, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -173,17 +112,16 @@ def review_detail(request, review_pk):
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
-# 리뷰 댓글
-@api_view(['GET', 'POST'])
-def review_comment(request):
-    if request.method == 'GET':
-        comment = request.user.review_set.all()
-        serializer = CommentSerializer(comment, many=True)
-        return Response(serializer.data)
-    else:
+# 리뷰 댓글 작성
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def review_comment(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    user = review.user
+    if request.method == 'POST':
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
+            serializer.save(review=review, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -200,3 +138,20 @@ def comment_update_delete(request, comment_pk):
     else:
         comment.delete()
         return Response({'id': comment_pk}, status=status.HTTP_204_NO_CONTENT)
+
+
+# 영화 좋아요
+@api_view(['POST'])
+def movie_like(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    user = request.user
+    if movie.like_users.filter(id=user.id).exists():
+        movie.like_users.remove(user)
+        is_like = False
+    else:
+        movie.like_users.add(user)
+        is_like = True
+    response = { 
+        'isLike': is_like, 
+        'likeCount': movie.like_users.count() }
+    return JsonResponse(response)
