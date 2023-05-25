@@ -255,6 +255,7 @@ img {
 
 #movie_overview {
   padding: 50px;
+  padding-left: 150px;
   font-size: 17px;
 }
 

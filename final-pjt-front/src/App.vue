@@ -122,7 +122,7 @@ export default {
   position: absolute;
   justify-content: center;
   margin: auto;
-  left:38%;
+  left:36%;
   font-size: 50px;
   font-weight: bold;
   flex-direction: column;
