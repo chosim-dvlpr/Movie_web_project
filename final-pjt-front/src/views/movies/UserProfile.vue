@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <h1>여기는 {{ this.userName }}님의 Profile 페이지</h1>
-        <p>current user : {{ this.currentUserName }}</p>
-        <div>
+    <div class="profile">
+        <h1 style="margin-top:20px;">{{ this.userName }}님의 Profile 페이지</h1>
+        <br>
+        <div class="whois_following">
             <p>{{ this.userName }}님을 팔로우하는 사람 : {{ this.followers }} 명</p>
             <p>{{ this.userName }}님이 팔로잉하는 사람 : {{ this.followings }} 명</p>
         </div>
@@ -97,5 +97,25 @@ export default {
 </script>
 
 <style>
+.profile {
+  position: relative;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid #FFD700;
+  border-radius: 5px;
+  width: 800px;
+  height: 500px;
+  align-items: center;
+  justify-content: flex-start;
+  margin: auto;
+  padding: 100px;
+  box-shadow: 2px 2px 10px gray;
+}
 
+
+.whois_following {
+    font-size: 25px;
+}
 </style>

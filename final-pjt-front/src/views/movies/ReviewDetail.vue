@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <h1>여기는 리뷰 디테일 페이지 ~ ! ^.^ </h1>
+  <div class="review_detail">
+    <h1>Review Detail</h1>
+    <br>
     <div>
         <div>
-            <h1>review id : {{ this.review.id }}</h1>
-            <h1>movie Id : {{ this.review.movie }}</h1>
             <p>제목 : {{ this.review.title }}</p>
-            <p>작성자 : <span @click="goToProfile">{{ this.userName }}</span></p>
+            <p>작성자 : <button style="background-color:beige; border-radius:40px;" @click="goToProfile">{{ this.userName }}</button></p>
             <p>내용 : {{ this.review.content }}</p>
             <p>평점 : {{ this.review.rating }}</p>
-            <p>추천 : {{ this.review.recommendation }}</p>
+            <p style="color:#FFD700;" v-if="review.recommendation">
+                이 영화를 추천합니다.
+            </p>
             <hr>
         </div>
         <div>
@@ -28,6 +29,7 @@
             <button @click="modifyReview">리뷰 수정하기</button>
             <button @click="deleteReview">리뷰 삭제하기</button>
         </div>
+        <br>
         <button @click="goToReviewList">뒤로가기</button>
     </div>
   </div>
@@ -207,5 +209,11 @@ export default {
 </script>
 
 <style>
-
+.review_detail {
+  position: relative;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>

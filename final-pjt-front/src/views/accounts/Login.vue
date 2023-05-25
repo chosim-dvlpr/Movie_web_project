@@ -61,7 +61,6 @@ export default {
         // console.log(res.data.userId)
         localStorage.removeItem("username")
         localStorage.removeItem("userId")
-        console.log(res.data.username)
         localStorage.setItem("username", res.data.username)
         localStorage.setItem("userId", res.data.userId)
       })

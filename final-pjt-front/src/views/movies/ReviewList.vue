@@ -10,15 +10,18 @@
             <p>리뷰 제목 : {{ review.title }}</p>
             <p>내용 : {{ review.content }}</p>
             <p>평점 : {{ review.rating }}</p>
-            <p>이 영화를 추천합니다 : </p>
+            <!-- <p>이 영화를 추천합니다 : </p>
+            {{ review.recommendation}}
             <p v-if="review.recommendation">
               <i class="fas fa-star fa-lg" style="color: #ffd700;"></i>
             </p>
-            <p v-if="review.recommendation===null"><i class="far fa-star fa-lg" style="color: #ffd700;"></i></p>
+            <p v-if="!review.recommendation">
+              <i class="far fa-star fa-lg" style="color: #ffd700;"></i>
+            </p> -->
             
             <hr>
           </span>
-      </span>
+        </span>
     </span>
     <p v-if="!this.checkMovieIdCount">리뷰가 없어요</p>
     <button @click="goToMovieDetail">뒤로가기</button>

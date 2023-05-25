@@ -56,7 +56,11 @@ export default {
     if (token) {                                // 토큰에 값이 있다면
       this.isLogin = true                       // isLogin 을 false 에서 true 로 변환     
     }
+    this.userName = localStorage.getItem('username')
   },
+  mounted() {
+    this.userName = localStorage.getItem('username')
+  }
 }
 
 </script>
@@ -118,7 +122,7 @@ export default {
   position: absolute;
   justify-content: center;
   margin: auto;
-  left:39%;
+  left:38%;
   font-size: 50px;
   font-weight: bold;
   flex-direction: column;
