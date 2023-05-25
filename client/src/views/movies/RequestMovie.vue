@@ -7,7 +7,6 @@
         <br>
         <p>{{ requestMovie.title }}</p><br>
     </div>
-
   </div>
 </template>
 
