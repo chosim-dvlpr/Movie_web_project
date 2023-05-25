@@ -18,7 +18,7 @@ from .models import Movie
 
 def start_function():
     print('hello world!')
-    for i in range(1, 4):
+    for i in range(1, 5):
         url = f"https://api.themoviedb.org/3/movie/popular?language=ko&page={i}&without_genres=10749&api_key={API_KEY}"
         # url = f"https://api.themoviedb.org/3/movie/popular?language=ko&page={i}&without_genres=10749&api_key={API_KEY}"
         print('letsgo')
