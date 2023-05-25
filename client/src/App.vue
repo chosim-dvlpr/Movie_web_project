@@ -5,7 +5,7 @@
       <span v-if="isLogin"> 
         <div>
           <!-- router-link 는 to 다음에 목표경로 설정, a tag와 비슷한 역할 -->
-          <router-link :to="{ name: 'MainView' }">Main</router-link> |
+          <router-link :to="{ name: 'MainView' }">Main</router-link>
           <!-- <router-link :to="{ name: 'UserProfile' }">UserProfile</router-link> -->
         </div>
         <div class="hello_user">
@@ -56,7 +56,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -70,6 +70,9 @@ export default {
 
 #nav {
   padding: 30px;
+  z-index: 3;
+  text-align: left;
+  /* background-color: black; */
 }
 
 #nav a {

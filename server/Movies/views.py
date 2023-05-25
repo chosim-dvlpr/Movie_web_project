@@ -28,6 +28,7 @@ def start_function():
 
         for movie in movie_data:
             mv=Movie(title=movie['title'],
+                backdrop_path=movie['backdrop_path'],
                 poster_path=movie['poster_path'],
                 original_language=movie['original_language'],
                 original_title=movie['original_title'],

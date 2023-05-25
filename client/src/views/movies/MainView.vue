@@ -5,31 +5,32 @@
           <!-- <iframe :src="videoSource" width="1980px" height="2000px" frameborder="0"></iframe> -->
           <!-- <iframe width="1000px" height="2000px" src="https://www.youtube.com/embed/a8Gx8wiNbs8?controls=0&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" allowfullscreen></iframe> -->
         <!-- </div> -->
-        <div class="carousel_box">
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <!-- <div class="carousel_box" style="width:100%;">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                    <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/kHen25Yk0DnaB2pqaB1mcZDKqMv.jpg" class="d-block w-100" alt="..." style="width:100px;">
+                        <img src="https://www.themoviedb.org/t/p/original/jMTvYnFr89K0RxO9K2sz4poWCCc.jpg" class="d-block" style="width:1920px;">
                     </div>
                     <div class="carousel-item">
-                    <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/wXNihLltMCGR7XepN39syIlCt5X.jpg" class="d-block w-100" alt="...">
+                        <img src="https://www.themoviedb.org/t/p/original/1ySuP1UAiVj7QDnQwivJkSZNTxH.jpg" class="d-block" style="width:1920px;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.themoviedb.org/t/p/original/u4SDPknBWEEOCzPJvL0NwApkQSR.jpg" class="d-block" style="width:1920px;">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
+        </div> -->
+        <div class="video_box">
+            <iframe width="2000px" height="1500px" src="https://www.youtube.com/embed/d9MyW72ELq0?controls=0&amp;start=1&mute=1&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
+
+
+
         <div class="gallery">
             <div v-for="movie in movieList" :key="movie.id" class="content_box">
                 <div @click="gotoMovieDetail(movie)" class="movie_box">
                     <div class="img_box">
-                        <img class="img_box_img" :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`"><br>
+                        <img class="img_box_img" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`"><br>
                     </div>
                     <div class="content_box_detail">
                         <p class="movie_title">{{ movie.title }}</p>
@@ -134,17 +135,29 @@ export default {
 
 <style scoped>
 * {
-    background-color: black;
+    /* background-color: transparent; */
 }
 
-.carousel_box {
-    width: 500px;
+nav {
+    z-index: 3;
 }
-/* .wrapped {
+
+
+.carousel_box {
     position: absolute;
-    margin: 5px;
-    width: 100%;
-} */
+    display: flex;
+    filter: brightness(70%); 
+    /* background-color: blueviolet; */
+}
+
+.video_box {
+    position: absolute;
+    top: -60px;
+    left: -100px;
+    display: flex;
+    z-index: 0;
+    /* justify-content: center; */
+}
 
 button {
     background-color: white;
@@ -155,15 +168,16 @@ button {
 
 
 .gallery {
-    position: relative;
+    position: absolute;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     /* grid-template-columns: repeat(3, 1fr);
     grid-column-end: 0px; */
 }
 
 .content_box {
-    background-color: rgb(0, 0, 0);
+    /* background-color: rgb(0, 0, 0); */
     width: 500px;
     /* display: flex; */
 }
@@ -194,7 +208,7 @@ button {
     margin-left: 20px;
     margin-right: 20px;
     transition-delay: 0.1s;
-    transition-duration: 1s;
+    transition-duration: 0.7s;
 }
 
 .img_box_img:hover {

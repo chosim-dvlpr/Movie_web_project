@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="root">
     <div>
       <div class="content_box">
-        <div>
+        <p class="background_img"><img :src="`https://www.themoviedb.org/t/p/original${movieDetail.backdrop_path}`" style="width: 3000px;"></p>
+        <div class="top_content">
           <div class="img_box">
-            <img :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetail.poster_path}`">
+            <img :src="`https://www.themoviedb.org/t/p/original${movieDetail.poster_path}`">
           </div>
           <div class="detail_box">
             <p id="movie_title">{{ movieDetail.title }}</p>
@@ -52,11 +53,13 @@ import youtube_api_key from '../../youtube_data'
 const API_URL = 'http://127.0.0.1:8000'
 const API_KEY = youtube_api_key
 
+
+
 export default {
     name: 'MovieDetail',
     data() {
       return {
-        movieDetail: JSON.parse(localStorage.getItem("moviedetail")), // localStorage에 저장
+        movieDetail: JSON.parse(localStorage.getItem("moviedetail")),
         isLike: false,
         videoKeyList: ['a8Gx8wiNbs8', '0-wPm99PF9U'],
         videoKey: '',
@@ -115,12 +118,39 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* @import 'material-icons/iconfont/material-icons.css'; */
+
+.root {
+  background-repeat : no-repeat;
+  background-position: top;
+  object-fit: cover;
+  /* position: fixed; */
+  background-size : cover;
+}
+
+/* #movieDetail {
+  background-image: url('');
+} */
+
+.background_img {
+  /* background-repeat : no-repeat; */
+  /* background-position: top; */
+  /* object-fit: cover; */
+  display: flex;
+  position: fixed;
+  filter: brightness(70%); 
+  z-index: 0;
+}
+
+.top_content {
+  display: flex;
+  position: relative;
+}
 
 .content_box {
   display: flex;
-  background-color: bisque;
+  /* background-color: bisque; */
   justify-content: space-around;
   }
 
@@ -128,6 +158,7 @@ export default {
   float: left;
   margin: 40px;
   background-color: tomato;
+  background-image: url('https://www.themoviedb.org/t/p/w300_and_h450_bestv2/8k8tmcx5e6ShpackLnDswBo1tnB.jpg')
 }
 
 img {
