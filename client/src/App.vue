@@ -91,7 +91,7 @@ export default {
   justify-content: flex-end;
   align-items: flex-start;
   width: 100%;
-  height: 20%;
+  height: 180px;
 }
 
 #nav a {

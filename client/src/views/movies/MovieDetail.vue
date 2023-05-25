@@ -25,7 +25,7 @@
               <img src="@/assets/사다리.png" style="width:15%; height:270px; border-radius:0; display:flex; margin-left:30px;">
               <div style="display:flex; justify-content:center; align-items:center; flex-direction:column; margin:auto;">
                 <p style="font-size:40px; padding-top:45px; position:relative; right:10px;">{{ movieDetail.original_title }}</p>
-                <p style="font-size:30px; padding-bottom:45px; position:relative; right:10px;">{{ movieDetail.vote_average}}</p>
+                <p style="font-size:25px; padding-bottom:45px; position:relative; right:10px;">VOTE : {{ movieDetail.vote_average}}</p>
               </div>
             </div>
             <!-- <img :src="`https://www.themoviedb.org/t/p/original${movieDetail.poster_path}`"> -->
@@ -159,7 +159,6 @@ export default {
   display: flex;
   /* background-color: bisque; */
   justify-content: space-around;
-
   }
 
 .img_box {
@@ -185,8 +184,7 @@ img {
   /* transform: skew(-20deg); */
   background: rgba(71, 71, 71, 0.356);
   box-shadow: 1px 1px 40px black;
-  top: 150px;
-
+  top: 180px;
 }
 
 .material-symbols-rounded {

@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <h1>Login</h1>
-    <div>
-      <label for="username">사용자 이름: </label>
-      <input type="text" id="username" v-model="userdata.username">
+  <div class="login">
+    <div class="input_box">
+      <div style="align-items:center; margin:auto;">
+        <h1>Login</h1>
+      </div>
+          <div>
+            <label for="username">사용자 이름: </label>
+            <input type="text" id="username" v-model="userdata.username">
+          </div>
+          <div>
+            <label for="pasword">비밀번호 확인: </label>
+            <input type="password" id="passwordConfirm" @keyup.enter="login" v-model="userdata.password">
+          </div>
+      <button @click="login" style="margin:auto;">로그인</button>
     </div>
-    <div>
-      <label for="pasword">비밀번호 확인: </label>
-      <input type="password" id="passwordConfirm" @keyup:enter="login" v-model="userdata.password">
-    </div>
-    <button @click="login">로그인</button>
   </div>
 </template>
 
@@ -78,3 +82,24 @@ export default {
   
 
 </script>
+
+<style scoped>
+.login {
+  position: relative;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input_box {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.input_box > div {
+  margin: 3px;
+}
+</style>
