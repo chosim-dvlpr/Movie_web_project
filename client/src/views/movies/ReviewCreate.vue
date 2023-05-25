@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="review_create">
+    <div class="input_box">
+    <div style="align-items:center; margin:auto;">
     <h2>리뷰 작성</h2>
-    <h3>여기는 ReviewCreate 페이지</h3>
-    <p>movie id : {{ this.movieId }}</p>
+    </div>
     <form @submit.prevent="reviewCreate">
-    <!-- <form> -->
       <div>
         <label for="title">제목:</label>
         <input type="text" id="title" v-model="title" required>
@@ -21,13 +21,11 @@
         <input type="checkbox" id="recommendation" v-model="recommendation">
         <label for="recommendation">이 영화를 추천합니다</label>
       </div>
-      <!-- <button type="submit" @click="reviewCreate">작성 완료</button> -->
       <button type="submit">작성 완료</button>
     </form>
-    <p>{{ this.user }}</p>
-    <hr>
+    </div>
+    <br>
     <button @click="goToMovieDetail">뒤로가기</button>
-    <hr>
   </div>
 </template>
 
@@ -107,5 +105,28 @@ export default {
 </script>
 
 <style>
+.review_create {
+  position: relative;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.input_box {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.input_box > form {
+  margin: 3px;
+}
+
+form > div {
+  margin: 3px;
+  display:flex;
+  align-items:center;
+}
 </style> 

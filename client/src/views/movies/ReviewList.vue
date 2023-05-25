@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <h1>여기는 ReviewList</h1>
-    <h2>리뷰 리스트 페이지</h2>
-    <hr>    
-    <!-- <span v-for="(review, index) in reviewList[0].filter((word) => word.movie === movieDetail.id)" :key="index"> -->
+  <div class="review">
+    <h1>ReviewList</h1>
+    <br>
     <span v-for="(review, index) in reviewList[0]" :key="index">
       <span v-if="checkMovieId(index)">
         <span @click="goToReviewDetail(review)">
@@ -12,7 +10,12 @@
             <p>리뷰 제목 : {{ review.title }}</p>
             <p>내용 : {{ review.content }}</p>
             <p>평점 : {{ review.rating }}</p>
-            <p>이 영화를 추천합니다 : {{ review.recommendation }}</p>
+            <p>이 영화를 추천합니다 : </p>
+            <p v-if="review.recommendation">
+              <i class="fas fa-star fa-lg" style="color: #ffd700;"></i>
+            </p>
+            <p v-if="review.recommendation===null"><i class="far fa-star fa-lg" style="color: #ffd700;"></i></p>
+            
             <hr>
           </span>
       </span>
@@ -114,5 +117,20 @@ export default {
 </script>
 
 <style>
+.review {
+  position: relative;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+button {
+  background-color: beige;
+}
+
+button:hover {
+  transition-duration: 0.1s;
+  background-color: #FFD700;
+}
 </style>

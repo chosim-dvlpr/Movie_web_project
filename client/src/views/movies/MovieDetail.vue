@@ -43,26 +43,24 @@
           </div>
         </div> -->
 
-        <div>
-          <button @click="goToReviewList">리뷰 보기</button>
-          <button @click="goToReviewCreate">리뷰 작성</button>
-        </div>
+
       </div>
 
       <div class="card" style="margin-top:15rem; left: 3rem; width: 10rem; flex-direction:row; display:flex; position:absolute; background-color:transparent;">
-            <div class="card-img-top" style="margin:10px; background-color:rgba(71, 71, 71, 0.356); height:340px; box-shadow:1px 1px 5px black; box-radius:5px;" v-for="(requestMovie, index) in requestMovieList" :key="index">
-              <img style="width:10rem;" :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${requestMovie.poster_path}`">
-              <div class="card-body">
-                <h5 class="card-title" style="color:white; margin-top:13px;">{{ requestMovie.title }}</h5>
-              </div>
-            </div>
+        <div class="card-img-top" style="margin:10px; background-color:rgba(71, 71, 71, 0.356); height:340px; box-shadow:1px 1px 5px black; box-radius:5px;" v-for="(requestMovie, index) in requestMovieList" :key="index">
+          <img style="width:10rem;" :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${requestMovie.poster_path}`">
+          <div class="card-body">
+            <h5 class="card-title" style="color:white; margin-top:13px;">{{ requestMovie.title }}</h5>
           </div>
+        </div>
+      </div>
     </div>
-    <div>
-      
+
+    <div style="width:10rem; position:absolute; left:10rem;">
+      <button @click="goToReviewList">리뷰 보기</button>
+      <button @click="goToReviewCreate">리뷰 작성</button>
     </div>
-    
-    <div>
+    <div style="width:50rem;">
       <button @click="backToMain">뒤로가기</button>
     </div>
   </div>
@@ -172,6 +170,14 @@ export default {
 
 <style scoped>
 /* @import 'material-icons/iconfont/material-icons.css'; */
+button {
+  background-color: beige;
+}
+
+button:hover {
+  transition-duration: 0.1s;
+  background-color: #FFD700;
+}
 
 .root {
   background-repeat : no-repeat;
@@ -240,9 +246,6 @@ img {
   'opsz' 48
 }
 
-.request_movie {
-  color: yellow;
-}
 
 #movie_title {
   font-size: 60px;
