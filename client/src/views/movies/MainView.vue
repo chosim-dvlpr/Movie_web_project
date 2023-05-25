@@ -134,8 +134,9 @@ export default {
 </script>
 
 <style scoped>
-* {
-    /* background-color: transparent; */
+.wrapped {
+    position: relative;
+    top: 200px;
 }
 
 nav {
@@ -152,7 +153,7 @@ nav {
 
 .video_box {
     position: absolute;
-    top: -60px;
+    top: -360px;
     left: -100px;
     display: flex;
     z-index: 0;
@@ -184,9 +185,11 @@ button {
 
 .movie_title {
     color: #dbbf0f;
+    text-shadow: black;
+    /* text-decoration-color: black; */
     font-weight: bold;
     font-size: 20px;
-    margin: 3px;
+    margin: 10px;
 }
 
 .movie_overview {
@@ -209,10 +212,13 @@ button {
     margin-right: 20px;
     transition-delay: 0.1s;
     transition-duration: 0.7s;
+    box-shadow: 10px 10px 30px black;
+    border-radius: 5px;
 }
 
 .img_box_img:hover {
     width: 370px;
+    color: black;
 }
 
 .content_box_detail {

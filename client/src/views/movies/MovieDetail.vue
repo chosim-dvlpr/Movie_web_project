@@ -2,16 +2,13 @@
   <div class="root">
     <div>
       <div class="content_box">
-        <p class="background_img"><img :src="`https://www.themoviedb.org/t/p/original${movieDetail.backdrop_path}`" style="width: 3000px;"></p>
+        <p class="background_img"><img :src="`https://www.themoviedb.org/t/p/original${movieDetail.backdrop_path}`" style="width: 2000px;"></p>
         <div class="top_content">
-          <div class="img_box">
-            <img :src="`https://www.themoviedb.org/t/p/original${movieDetail.poster_path}`">
-          </div>
           <div class="detail_box">
             <p id="movie_title">{{ movieDetail.title }}</p>
             <p id="movie_overview">{{ movieDetail.overview }}</p>
             <p>Release Date : {{ movieDetail.release_date }}</p>
-            <router-link :to="{ name: 'RequestMovie' }" class="request_movie">RequestMovie</router-link>
+            <router-link :to="{ name: 'RequestMovie' }" class="request_movie">추천 영화</router-link>
 
             <div v-if="!this.isLike">
               <button @click="likeMovie">좋아요</button>
@@ -23,19 +20,25 @@
               <iframe :src="`https://youtube.com/embed/${this.video}`" width="600px" height="450px" frameborder="0"></iframe>
             </div>
           </div>
+          <div class="title_box">
+            <div class="title_box_detail" style="color:black; font-weight:bold;">
+              <img src="@/assets/사다리.png" style="width:15%; height:270px; border-radius:0; display:flex; margin-left:30px;">
+              <div style="display:flex; justify-content:center; align-items:center; flex-direction:column; margin:auto;">
+                <p style="font-size:40px; padding-top:45px; position:relative; right:10px;">{{ movieDetail.original_title }}</p>
+                <p style="font-size:30px; padding-bottom:45px; position:relative; right:10px;">{{ movieDetail.vote_average}}</p>
+              </div>
+            </div>
+            <!-- <img :src="`https://www.themoviedb.org/t/p/original${movieDetail.poster_path}`"> -->
+          </div>
         </div>
       </div>
     </div>
     <div>
       
     </div>
-
-
-
     <div class="review_box">
       <h2>Review</h2>
-      <!-- <p>movieId : {{ movieDetail.id }}</p> -->
-      <!-- 리뷰 모아보기를 버튼 말고 화면에 띄우도록 수정하기 -->
+      <RequestMovie />
       <button @click="goToReviewList">리뷰 보기</button>
       <button @click="goToReviewCreate">리뷰 작성</button>
     </div>
@@ -49,6 +52,7 @@
 <script>
 import axios from 'axios'
 import youtube_api_key from '../../youtube_data'
+import RequestMovie from '@/components/RequestMovie.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
 const API_KEY = youtube_api_key
@@ -57,6 +61,9 @@ const API_KEY = youtube_api_key
 
 export default {
     name: 'MovieDetail',
+    component: {
+      RequestMovie,
+    },
     data() {
       return {
         movieDetail: JSON.parse(localStorage.getItem("moviedetail")),
@@ -139,7 +146,7 @@ export default {
   /* object-fit: cover; */
   display: flex;
   position: fixed;
-  filter: brightness(70%); 
+  filter: brightness(50%); 
   z-index: 0;
 }
 
@@ -152,28 +159,34 @@ export default {
   display: flex;
   /* background-color: bisque; */
   justify-content: space-around;
+
   }
 
 .img_box {
   float: left;
   margin: 40px;
-  background-color: tomato;
-  background-image: url('https://www.themoviedb.org/t/p/w300_and_h450_bestv2/8k8tmcx5e6ShpackLnDswBo1tnB.jpg')
+  background-color: transparent;
 }
 
 img {
   width: 600px;
-
+  border-radius: 20px;
 }
 
 .detail_box {
   display: flex;
   flex-direction: column;
-  margin: 40px;
-  background-color: aquamarine;
-  /* width: 40rem; */
-  height: calc(600px - 80px);
-  padding: 50px;
+  position: relative;
+  left: -20%;
+  padding: 100px;
+  padding-left: 380px;
+  width: 1300px;
+  /* height: 1000px; */
+  /* transform: skew(-20deg); */
+  background: rgba(71, 71, 71, 0.356);
+  box-shadow: 1px 1px 40px black;
+  top: 150px;
+
 }
 
 .material-symbols-rounded {
@@ -189,15 +202,42 @@ img {
 }
 
 #movie_title {
-  font-size: 30px;
+  font-size: 60px;
+  color: #FFD700;
+  font-weight: bold;
+}
+
+#movie_overview {
+  padding: 50px;
+  font-size: 17px;
 }
 
 .review_box {
   background-color: pink;
+  display: flex;
+  position: absolute;
+}
+
+.video_box {
+  padding: 50px;
 }
 
 /* .content_box.video_box {
   position: absolute;
   top: 90px;
 } */
+
+.title_box_detail {
+  background-color: #FFD700;
+  width: 450px;
+  height: 270px;
+  position: relative;
+  top: 600px;
+  right: 170px;
+  border-radius: 3px;
+  text-decoration-color: black;
+  display: flex;
+  box-shadow: 10px 10px 50px black;
+}
+
 </style>

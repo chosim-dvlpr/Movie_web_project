@@ -1,9 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
+      <div class="title">
+        <span>CEMO</span>
+        <span style="font-size:30px">Choose Entertaining Movies Ourselves</span>
+      </div>
       <!-- v-if/v-else 디렉티브를 통해 로그인 여부에 따라 다른 링크들이 표시되도록 구성 -->
-      <span v-if="isLogin"> 
-        <div>
+      <span v-if="isLogin" style="display:flex; justify-content:space-between;"> 
+        
+        <div style="position:absolute; top:40%; left:50px;">
           <!-- router-link 는 to 다음에 목표경로 설정, a tag와 비슷한 역할 -->
           <router-link :to="{ name: 'MainView' }">Main</router-link>
           <!-- <router-link :to="{ name: 'UserProfile' }">UserProfile</router-link> -->
@@ -14,6 +19,7 @@
           <!--.native : 현재 컴포넌트에 요청을 보내기 위해 사용 -->
           <router-link to="#" @click.native="logout">Logout</router-link> 
         </div>
+
       </span>
       <span v-else>
         <router-link :to="{ name: 'Signup' }">Signup</router-link> |
@@ -57,8 +63,15 @@ export default {
 
 
 <style scoped>
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -71,25 +84,47 @@ export default {
 #nav {
   padding: 30px;
   z-index: 3;
-  text-align: left;
-  /* background-color: black; */
+  text-align: right;
+  background-color: #FFD700;
+  position:fixed;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+  height: 20%;
 }
 
 #nav a {
   font-weight: bold;
-  color: #fffdef;
+  color: black;
 }
 
 #nav a.router-link-exact-active {
-  color: #fde512;
+  color: #5c4e00;
 }
 
 .hello_user {
   display: flex;
-  margin-bottom: 0px;
+  position: relative;
+  right: 15px;
+  margin-top: 20px;
   flex-direction: column;
-  align-items: flex-end;
+  color: #5c4e00;
+  font-size: 15px;
 }
 
+.title {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  margin: auto;
+  left:39%;
+  font-size: 50px;
+  font-weight: bold;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  padding-bottom: 29px;
+}
 
 </style>
