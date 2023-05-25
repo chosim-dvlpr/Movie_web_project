@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>여기는 Movie Detail View</h1>
-    <h2>영화 디테일을 볼 수 있는 페이지</h2>
     <div>
       <div class="content_box">
         <div>
@@ -9,25 +7,31 @@
             <img :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetail.poster_path}`">
           </div>
           <div class="detail_box">
-            <p>Title : {{ movieDetail.title }}</p>
-            <p>개요 : {{ movieDetail.overview }}</p>
-            <p>개봉일 : {{ movieDetail.release_date }}</p>
-            <router-link :to="{ name: 'RequestMovie' }">RequestMovie</router-link>
+            <p id="movie_title">{{ movieDetail.title }}</p>
+            <p id="movie_overview">{{ movieDetail.overview }}</p>
+            <p>Release Date : {{ movieDetail.release_date }}</p>
+            <router-link :to="{ name: 'RequestMovie' }" class="request_movie">RequestMovie</router-link>
+
+            <div v-if="!this.isLike">
+              <button @click="likeMovie">좋아요</button>
+            </div>
+            <div v-else>
+              <button @click="likeMovie">좋아요 취소</button>
+            </div>
+            <div class="video_box">
+              <iframe :src="`https://youtube.com/embed/${this.video}`" width="600px" height="450px" frameborder="0"></iframe>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div>
-      <div v-if="!this.isLike">
-        <button @click="likeMovie">좋아요</button>
-      </div>
-      <div v-else>
-        <button @click="likeMovie">좋아요 취소</button>
-      </div>
+      
     </div>
-    <hr>
 
-    <div>
+
+
+    <div class="review_box">
       <h2>Review</h2>
       <!-- <p>movieId : {{ movieDetail.id }}</p> -->
       <!-- 리뷰 모아보기를 버튼 말고 화면에 띄우도록 수정하기 -->
@@ -43,8 +47,10 @@
 
 <script>
 import axios from 'axios'
+import youtube_api_key from '../../youtube_data'
 
 const API_URL = 'http://127.0.0.1:8000'
+const API_KEY = youtube_api_key
 
 export default {
     name: 'MovieDetail',
@@ -52,6 +58,9 @@ export default {
       return {
         movieDetail: JSON.parse(localStorage.getItem("moviedetail")), // localStorage에 저장
         isLike: false,
+        videoKeyList: ['a8Gx8wiNbs8', '0-wPm99PF9U'],
+        videoKey: '',
+        video: '',
       }
     },
     methods: {
@@ -85,16 +94,22 @@ export default {
         .catch(err => {
             console.log(err)
         })  
-      }
+      },
+      // 유튜브 video
+      getVideo() {
+          const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.videoKeyList[0]}&key=${API_KEY}`
+          axios.get(url)
+          .then(response => {
+              console.log(response)
+              this.video = response.data.items[0].id
+          })
+          .catch(error => {
+              console.error(error)
+          })
+      },
     },
     created() {
-      // this.movieDetail = this.$route.params.movie.Detail
-      // this.movieDetail = localStorage.getItem('movie')
-      // console.log(this.movieDetail)
-      // this.moviePoster = this.$route.params.movie.backdrop_path
-      // this.movieOverview = this.$route.params.movie.overview
-      // this.movieReleaseDate = this.$route.params.movie.release_date
-      // this.movieId = this.$route.params.movie.id
+      this.getVideo()
     }
     
 }
@@ -104,20 +119,30 @@ export default {
 /* @import 'material-icons/iconfont/material-icons.css'; */
 
 .content_box {
+  display: flex;
+  background-color: bisque;
+  justify-content: space-around;
   }
 
 .img_box {
   float: left;
+  margin: 40px;
+  background-color: tomato;
 }
 
 img {
-  width: 400px;
+  width: 600px;
 
 }
 
 .detail_box {
   display: flex;
   flex-direction: column;
+  margin: 40px;
+  background-color: aquamarine;
+  /* width: 40rem; */
+  height: calc(600px - 80px);
+  padding: 50px;
 }
 
 .material-symbols-rounded {
@@ -127,4 +152,21 @@ img {
   'GRAD' 0,
   'opsz' 48
 }
+
+.request_movie {
+  color: yellow;
+}
+
+#movie_title {
+  font-size: 30px;
+}
+
+.review_box {
+  background-color: pink;
+}
+
+/* .content_box.video_box {
+  position: absolute;
+  top: 90px;
+} */
 </style>
