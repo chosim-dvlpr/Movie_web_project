@@ -6,7 +6,7 @@ def start():
     scheduler=BackgroundScheduler()
     scheduler.add_jobstore(DjangoJobStore(), 'djangojobstore')
     register_events(scheduler)
-    @scheduler.scheduled_job('interval', seconds=10, name='start_function')
+    @scheduler.scheduled_job('interval', minutes=10, name='start_function')
     def auto_check():
         start_function()
     scheduler.start()
