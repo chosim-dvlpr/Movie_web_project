@@ -8,7 +8,6 @@
             <p id="movie_title">{{ movieDetail.title }}</p>
             <p id="movie_overview">{{ movieDetail.overview }}</p>
             <p>개봉일 : {{ movieDetail.release_date }}</p>
-
             <div v-if="!this.isLike">
               <p @click="likeMovie"><i class="far fa-heart fa-lg" style="color: #ff0000;"></i></p>
             </div>
@@ -28,7 +27,6 @@
                 <p style="font-size:25px; padding-bottom:45px; position:relative; right:10px;">VOTE : {{ movieDetail.vote_average}}</p>
               </div>
             </div>
-            <!-- <img :src="`https://www.themoviedb.org/t/p/original${movieDetail.poster_path}`"> -->
           </div>
         </div>
 
@@ -145,8 +143,6 @@ export default {
             axios({
                 method: 'get',
                 url: `https://api.themoviedb.org/3/movie/${this.movieId}/similar?language=ko&page=1&api_key=${API_KEY}`,
-                // data: this.movieId,
-                // headers: this.setToken()
             })
             .then(res => {
                 this.requestMovieList.push(res.data.results[0])
@@ -154,7 +150,6 @@ export default {
                 this.requestMovieList.push(res.data.results[2])
                 this.requestMovieList.push(res.data.results[5])
                 this.requestMovieList.push(res.data.results[4])
-                // console.log(this.requestMovieList.results)
             })
             .catch(err => {
                 console.log(err)
@@ -183,7 +178,6 @@ button:hover {
   background-repeat : no-repeat;
   background-position: top;
   object-fit: cover;
-  /* position: fixed; */
   background-size : cover;
 }
 
@@ -208,7 +202,6 @@ button:hover {
 
 .content_box {
   display: flex;
-  /* background-color: bisque; */
   justify-content: space-around;
   }
 

@@ -34,7 +34,6 @@
                     </div>
                     <div class="content_box_detail">
                         <p class="movie_title" @click="gotoMovieDetail(movie)" >{{ movie.title }}</p>
-                        <!-- <p class="movie_overview">{{ movie.overview }}</p> -->
                     </div>
                 </div>
             </div>
