@@ -28,12 +28,12 @@
 
         <div class="gallery">
             <div v-for="movie in movieList" :key="movie.id" class="content_box">
-                <div @click="gotoMovieDetail(movie)" class="movie_box">
+                <div class="movie_box">
                     <div class="img_box">
-                        <img class="img_box_img" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`"><br>
+                        <img class="img_box_img" @click="gotoMovieDetail(movie)" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`"><br>
                     </div>
                     <div class="content_box_detail">
-                        <p class="movie_title">{{ movie.title }}</p>
+                        <p class="movie_title" @click="gotoMovieDetail(movie)" >{{ movie.title }}</p>
                         <!-- <p class="movie_overview">{{ movie.overview }}</p> -->
                     </div>
                 </div>
@@ -54,7 +54,7 @@ export default {
     data: function () {
         return {
             movieList: [],
-            videoKeyList: ['a8Gx8wiNbs8', '0-wPm99PF9U'],
+            // videoKeyList: ['a8Gx8wiNbs8', '0-wPm99PF9U'],
             videoKey: '',
             video: null,
         }
@@ -63,16 +63,13 @@ export default {
         showMovies: function() {
             axios({
                 method: 'get',
-                url: `${API_URL}/api/movies/`, // back server urls.py와 맞추기
-                // headers: this.setToken()
+                url: `${API_URL}/api/movies/`,
             })
             .then(res => {
                 this.movieList = res.data
-                // console.log(this.movieList)
                 // localStorage.clear('movieList')
                 localStorage.setItem('movieList', JSON.stringify(this.movieList))
                 // this.test = localStorage.getItem('movieList')
-                // console.log(this.test+'_')
             })
             .catch(err => {
                 console.log(err)
@@ -80,7 +77,6 @@ export default {
         },
         // 클릭 시 Movie 상세페이지로 이동
         gotoMovieDetail(movie) {
-            // console.log(movie)
             this.$router.push({ name: 'MovieDetail', params: { id: movie.id, movie: movie }})
             localStorage.setItem('moviedetail', JSON.stringify(movie))
         },
@@ -91,7 +87,6 @@ export default {
             const config = {
                 Authorization: `Bearer ${token}`
             }
-            // console.log(config)
             return config
         },
 
@@ -148,7 +143,6 @@ nav {
     position: absolute;
     display: flex;
     filter: brightness(70%); 
-    /* background-color: blueviolet; */
 }
 
 .video_box {
@@ -157,7 +151,6 @@ nav {
     left: -100px;
     display: flex;
     z-index: 0;
-    /* justify-content: center; */
 }
 
 button {
@@ -178,9 +171,7 @@ button {
 }
 
 .content_box {
-    /* background-color: rgb(0, 0, 0); */
     width: 500px;
-    /* display: flex; */
 }
 
 .movie_title {
@@ -189,7 +180,6 @@ button {
     background-color: rgba(39, 39, 39, 0.411);
     border-radius: 7px;
     padding: 0 7px;
-    /* text-decoration-color: black; */
     font-weight: bold;
     font-size: 20px;
     margin: 10px;
