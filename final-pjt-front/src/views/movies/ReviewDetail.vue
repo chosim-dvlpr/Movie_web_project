@@ -168,7 +168,7 @@ export default {
                     // headers: this.setToken(),
                 })
                 .then(() => {
-                    alert('리뷰가 삭제되었습니다!')
+                    alert('댓글이 삭제되었습니다!')
                     // console.log(res)
                     // this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
                     // this.commentList.removeItem(res.data)
@@ -186,6 +186,7 @@ export default {
 
         // 프로필로 이동
         goToProfile() {
+            localStorage.setItem('profile_user', this.userName)
             this.$router.push({ name: 'UserProfile' })
         },
     },

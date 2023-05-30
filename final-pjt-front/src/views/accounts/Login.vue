@@ -43,6 +43,7 @@ export default {
         // console.log(res.config)
         localStorage.setItem("jwt", res.data.access)
         this.getUser()
+        console.log(this.username)
         this.$emit('login')
         this.$router.push({ name: 'MainView' })
       })

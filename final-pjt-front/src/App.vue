@@ -2,8 +2,8 @@
   <div id="app">
     <div id="nav">
       <div class="title">
-        <span>CEMO</span>
-        <span style="font-size:30px">Choose Entertaining Movies Ourselves</span>
+        <span class="shadow_title">CEMO</span>
+        <span class="shadow_title" style="font-size:30px">Choose Entertaining Movies Ourselves</span>
       </div>
       <!-- v-if/v-else 디렉티브를 통해 로그인 여부에 따라 다른 링크들이 표시되도록 구성 -->
       <span v-if="isLogin" style="display:flex; justify-content:space-between;"> 
@@ -104,7 +104,7 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #5c4e00;
+  color: #2c2500;
 }
 
 .hello_user {
@@ -129,6 +129,14 @@ export default {
   align-items: center;
   color: black;
   padding-bottom: 29px;
+  
 }
 
+.shadow_title {
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15), 
+              0 2px 2px rgba(0,0,0,0.15), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.15);
+
+}
 </style>

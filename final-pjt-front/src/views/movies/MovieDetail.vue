@@ -45,7 +45,7 @@
 
 
       </div>
-
+      <!-- 스와이프 기능 넣어보기 -->
       <div class="card" style="margin-top:15rem; left: 3rem; width: 10rem; flex-direction:row; display:flex; position:absolute; background-color:transparent;">
         <div class="card-img-top" style="margin:10px; background-color:rgba(71, 71, 71, 0.356); height:340px; box-shadow:1px 1px 5px black; box-radius:5px;" v-for="(requestMovie, index) in requestMovieList" :key="index">
           <img style="width:10rem;" :src="`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${requestMovie.poster_path}`">
@@ -152,7 +152,7 @@ export default {
                 this.requestMovieList.push(res.data.results[0])
                 this.requestMovieList.push(res.data.results[1])
                 this.requestMovieList.push(res.data.results[2])
-                this.requestMovieList.push(res.data.results[3])
+                this.requestMovieList.push(res.data.results[5])
                 this.requestMovieList.push(res.data.results[4])
                 // console.log(this.requestMovieList.results)
             })

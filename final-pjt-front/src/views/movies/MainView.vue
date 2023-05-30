@@ -186,6 +186,9 @@ button {
 .movie_title {
     color: #dbbf0f;
     text-shadow: black;
+    background-color: rgba(39, 39, 39, 0.411);
+    border-radius: 7px;
+    padding: 0 7px;
     /* text-decoration-color: black; */
     font-weight: bold;
     font-size: 20px;

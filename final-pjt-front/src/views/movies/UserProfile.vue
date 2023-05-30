@@ -8,7 +8,7 @@
         </div>
         <!-- profile 주인의 정보와 접속한 사람의 정보가 다르다면 팔로우 버튼 표시 -->
         <!-- 팔로우하지 않은 상태라면 팔로우하기 버튼을, 팔로우한 상태라면 팔로잉 취소 버튼 -->
-        <div v-if="!this.isUser">
+        <div v-if="this.isUser">
             <span v-if="!isFollowing">
                 <button @click="clickFollow">팔로우하기</button>
             </span>
@@ -28,7 +28,7 @@ export default {
     name: 'UserProfile',
     data() {
         return {
-            userName: localStorage.getItem('username'),
+            userName: localStorage.getItem('profile_user'),
             userId: null,
             currentUserName: localStorage.getItem('username'),
             currentUserId: localStorage.getItem('userId'),
@@ -50,6 +50,7 @@ export default {
         //     .then(res => {
         //         this.userId = res.data.userId
         //         this.userName = res.data.username
+        //         console.log('User : '+this.userName)
         //     })
         //     .catch(err => {
         //         console.log(err)
@@ -88,7 +89,7 @@ export default {
 
         // 프로필 주인 정보와 접속한 사람의 정보 확인
         // 정보가 다르면 true, 같으면 false(디폴트)
-        if (this.userId !== this.currentUserId) {
+        if (this.profile_user !== this.currentUserName) {
             this.isUser = true
         }
         // this.userName = this.$route.params.id
@@ -96,14 +97,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .profile {
   position: relative;
   top: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 5px solid #FFD700;
+  /* border: 5px solid #FFD700; */
   border-radius: 5px;
   width: 800px;
   height: 500px;
@@ -117,5 +118,9 @@ export default {
 
 .whois_following {
     font-size: 25px;
+}
+
+button {
+    margin-top: 20px;
 }
 </style>
