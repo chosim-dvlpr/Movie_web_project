@@ -79,10 +79,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fffdef;
+  /* color: #fffdef; */
   background-color: black;
   width: 100%;
-  height: 5000px;
+  height: 100%;
 }
 
 #nav {
