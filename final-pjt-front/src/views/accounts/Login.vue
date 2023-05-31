@@ -3,7 +3,7 @@
     <h1 id="login-header">Login</h1>
     <!-- 로그인 오류 시 에러 메세지 -->
     <div id="login-err-msg-holder">
-      <p id="login-err-msg">Invalid username <span id="err-msg-second-line">and/or password</span></p>
+      <p id="login-err-msg" :style="{ opacity : isError }" >Invalid username <span id="err-msg-second-line">and/or password</span></p>
     </div>
     
     <!-- 로그인 폼 -->
@@ -50,7 +50,8 @@ export default {
       userdata: {
         username: null,
         password: null,
-      }
+      },
+      isError: 0,
     }
   },
   methods: {
@@ -70,7 +71,12 @@ export default {
         this.$router.push({ name: 'MainView' })
       })
       .catch((err) => {
-        console.log(err)
+        this.isError = 1
+        if (err.response.status === 401) {
+          alert("Username/Password is invalid!")
+        } else if (err.response.status === 400) {
+          alert("Username/Password is empty!")
+        }
       })
       return false
     },
@@ -98,7 +104,7 @@ export default {
         }
         return config
       },
-  }
+  },
 }
     
   
@@ -139,7 +145,7 @@ export default {
   color: #8a0000;
   border: 1px solid #8a0000;
   background-color: #e58f8f;
-  /* 로그인 에러 시 opacity 변경 (JS) */
+  /* 로그인 에러 시 opacity 변경 */
   opacity: 0;
 }
 
@@ -177,6 +183,20 @@ export default {
   background-color: #3a3a3a;
   cursor: pointer;
   outline: none;
+}
+
+.login-err-msg-opacity {
+  width: 23%;
+  text-align: center;
+  margin: 0;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #8a0000;
+  border: 1px solid #8a0000;
+  background-color: #e58f8f;
+  /* 로그인 에러 시 opacity 변경 */
+  opacity: 1;
 }
 
 /* 
