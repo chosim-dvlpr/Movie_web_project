@@ -115,11 +115,11 @@ export default {
 #main-login {
   position: relative;
   top: 200px;
-  flex-direction: column;
   align-items: center;
+  margin: auto;
 
   width: 50%;
-  height: 70%;
+  height: 50%;
   display: grid;
   justify-items: center;
   background-color: beige;
@@ -185,19 +185,6 @@ export default {
   outline: none;
 }
 
-.login-err-msg-opacity {
-  width: 23%;
-  text-align: center;
-  margin: 0;
-  padding: 5px;
-  font-size: 12px;
-  font-weight: bold;
-  color: #8a0000;
-  border: 1px solid #8a0000;
-  background-color: #e58f8f;
-  /* 로그인 에러 시 opacity 변경 */
-  opacity: 1;
-}
 
 /* 
 .input_box {
