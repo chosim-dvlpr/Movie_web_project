@@ -1,17 +1,22 @@
 <template>
   <div id="app">
     <div id="nav">
-      <div class="title">
-        <span class="shadow_title">CEMO</span>
-        <span class="shadow_title" style="font-size:30px">Choose Entertaining Movies Ourselves</span>
+      <div v-if="!isLogin">
+        <div class="not-login-title">
+          <span class="shadow_title">CEMO</span>
+          <span class="shadow_title" style="font-size:30px">Choose Entertaining Movies Ourselves</span>
+        </div>
       </div>
       <!-- v-if/v-else 디렉티브를 통해 로그인 여부에 따라 다른 링크들이 표시되도록 구성 -->
-      <span v-if="isLogin" style="display:flex; justify-content:space-between;"> 
-        
-        <div style="position:absolute; top:40%; left:50px;">
+      <!-- <div v-if="isLogin" style="display:flex; justify-content:space-between;">  -->
+      <div v-if="isLogin" class="is-login"> 
+        <div class="login-title">
+          <span>CEMO</span>
+        </div>
+        <!-- <div style="position:absolute; top:40%; left:0px;"> -->
+        <div id="main-button">
           <!-- router-link 는 to 다음에 목표경로 설정, a tag와 비슷한 역할 -->
           <router-link :to="{ name: 'MainView' }">Main</router-link>
-          <!-- <router-link :to="{ name: 'UserProfile' }">UserProfile</router-link> -->
         </div>
         <div class="hello_user">
           <p>{{ userName }}님, 안녕하세요!</p>
@@ -19,12 +24,11 @@
           <!--.native : 현재 컴포넌트에 요청을 보내기 위해 사용 -->
           <router-link to="#" @click.native="logout">Logout</router-link> 
         </div>
-
-      </span>
-      <span v-else>
+      </div>
+      <div v-else class="is-not-login">
         <router-link :to="{ name: 'Signup' }">Signup</router-link> |
         <router-link :to="{ name: 'Login' }">Login</router-link> 
-      </span>
+      </div>
     </div>
     <router-view @login="isLogin=true"/> <!--라우터뷰는 클릭시 주어진 URL과 일치하는 컴포넌트를 렌더링, 장고의 block tag 와 비슷하다. -->
   </div>
@@ -76,8 +80,8 @@ export default {
 
 #app {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
   text-align: center;
   /* color: #fffdef; */
   background-color: black;
@@ -86,14 +90,13 @@ export default {
 }
 
 #nav {
-  padding: 30px;
-  z-index: 3;
+  z-index: 1;
   text-align: right;
   background-color: #FFD700;
   position:fixed;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
+  justify-items: center;
   width: 100%;
   height: 180px;
 }
@@ -109,7 +112,7 @@ export default {
 
 .hello_user {
   display: flex;
-  position: relative;
+  position: absolute;
   right: 15px;
   margin-top: 20px;
   flex-direction: column;
@@ -117,19 +120,13 @@ export default {
   font-size: 15px;
 }
 
-.title {
-  display: flex;
-  position: absolute;
-  justify-content: center;
-  margin: auto;
-  left:36%;
+.not-login-title {
+  display: grid;
+  position: relative;
+  justify-items: center;
   font-size: 50px;
   font-weight: bold;
-  flex-direction: column;
-  align-items: center;
   color: black;
-  padding-bottom: 29px;
-  
 }
 
 .shadow_title {
@@ -137,6 +134,50 @@ export default {
               0 2px 2px rgba(0,0,0,0.15), 
               0 4px 4px rgba(0,0,0,0.15), 
               0 8px 8px rgba(0,0,0,0.15);
-
 }
+
+.is-login {
+  display: grid;
+  position: relative;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.is-not-login {
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-right: 50px;
+}
+
+/* .login-title-box {
+  position: absolute;
+  background-color: blue;
+} */
+
+.login-title {
+  display: grid;
+  position: absolute;
+  justify-items: start;  
+  font-size: 40px;
+  font-weight: bold;
+  color: black;
+  line-height: 180px;
+  margin-left: 50px;
+  text-shadow: 3px 3px #3333334e;
+}
+
+#main-button {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  line-height: 180px;
+  
+  /* width: 100%; */
+  /* left: -300px; */
+}
+
 </style>
