@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <div v-if="!isLogin">
-        <div class="not-login-title">
+      <div v-if="!isLogin" class="not-login-title">
+        <!-- <div class="not-login-title"> -->
           <span class="shadow_title">CEMO</span>
           <span class="shadow_title" style="font-size:30px">Choose Entertaining Movies Ourselves</span>
-        </div>
+        <!-- </div> -->
       </div>
       <!-- v-if/v-else 디렉티브를 통해 로그인 여부에 따라 다른 링크들이 표시되도록 구성 -->
       <!-- <div v-if="isLogin" style="display:flex; justify-content:space-between;">  -->
@@ -113,8 +113,8 @@ export default {
 .hello_user {
   display: flex;
   position: absolute;
-  right: 15px;
-  margin-top: 20px;
+  right: 50px;
+  margin-top: 46.5px;
   flex-direction: column;
   color: #5c4e00;
   font-size: 15px;
@@ -124,6 +124,7 @@ export default {
   display: grid;
   position: relative;
   justify-items: center;
+  align-content: center;
   font-size: 50px;
   font-weight: bold;
   color: black;
