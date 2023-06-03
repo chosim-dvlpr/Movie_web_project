@@ -10,3 +10,7 @@
 - CSS selector는 가능한 구체적으로 만들기 : 영향을 주고자 하는 요소에만 영향을 미치도록
 - CSS는 kebab-case로 네이밍
 - display grid 참고 : https://studiomeal.com/archives/533
+- sessionStorage <-> localStorage
+  - localStorage는 브라우저가 종료돼도 데이터가 남아있지만, session의 경우 데이터가 소멸됨
+  - 로그인 정보나 영화데이터 정보 저장의 경우, localStorage보다 브라우저가 종료되면 사라지는 sessionStorage를 사용하는 것이 더 나을 것 같다고 판단, -> 전체 코드 수정!
+
