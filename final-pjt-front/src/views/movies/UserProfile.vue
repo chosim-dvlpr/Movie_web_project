@@ -28,10 +28,10 @@ export default {
     name: 'UserProfile',
     data() {
         return {
-            userName: localStorage.getItem('profile_user'),
+            userName: sessionStorage.getItem('profile_user'),
             userId: null,
-            currentUserName: localStorage.getItem('username'),
-            currentUserId: localStorage.getItem('userId'),
+            currentUserName: sessionStorage.getItem('username'),
+            currentUserId: sessionStorage.getItem('userId'),
             isUser: false, // 프로필 페이지의 유저와 로그인한 유저가 다르면 true
             isFollowing: false,
 
@@ -77,7 +77,7 @@ export default {
         },
         // 토큰
         setToken: function() {
-        const token = localStorage.getItem('jwt')
+        const token = sessionStorage.getItem('jwt')
         const config = {
             Authorization: `Bearer ${token}`
         }

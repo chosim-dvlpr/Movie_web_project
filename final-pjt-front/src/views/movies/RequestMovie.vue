@@ -21,7 +21,7 @@ export default {
     name: 'RequestMovie',
     data() {
         return {
-            movieId: JSON.parse(localStorage.getItem('moviedetail')).id,
+            movieId: JSON.parse(sessionStorage.getItem('moviedetail')).id,
             requestMovieList: [],
         }
     },
@@ -42,7 +42,7 @@ export default {
             })  
         },
         setToken: function() {
-            const token = localStorage.getItem('jwt')
+            const token = sessionStorage.getItem('jwt')
             const config = {
                 Authorization: `Bearer ${token}`
             }

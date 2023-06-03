@@ -44,13 +44,13 @@ export default {
             recommendation: null,
 
             reviewList: [],
-            movieId: JSON.parse(localStorage.getItem("moviedetail")).id,
-            user: localStorage.getItem("username")
+            movieId: JSON.parse(sessionStorage.getItem("moviedetail")).id,
+            user: sessionStorage.getItem("username")
         }
     },
     methods: {
       setToken: function() {
-        const token = localStorage.getItem('jwt')
+        const token = sessionStorage.getItem('jwt')
         const config = {
           Authorization: `Bearer ${token}`
         }

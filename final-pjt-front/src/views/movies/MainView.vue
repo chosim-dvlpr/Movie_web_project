@@ -67,7 +67,7 @@ export default {
             .then(res => {
                 this.movieList = res.data
                 // localStorage.clear('movieList')
-                localStorage.setItem('movieList', JSON.stringify(this.movieList))
+                sessionStorage.setItem('movieList', JSON.stringify(this.movieList))
                 // this.test = localStorage.getItem('movieList')
             })
             .catch(err => {
@@ -77,12 +77,12 @@ export default {
         // 클릭 시 Movie 상세페이지로 이동
         gotoMovieDetail(movie) {
             this.$router.push({ name: 'MovieDetail', params: { id: movie.id, movie: movie }})
-            localStorage.setItem('moviedetail', JSON.stringify(movie))
+            sessionStorage.setItem('moviedetail', JSON.stringify(movie))
         },
 
         // 토큰
         setToken: function() {
-            const token = localStorage.getItem('jwt')
+            const token = sessionStorage.getItem('jwt')
             const config = {
                 Authorization: `Bearer ${token}`
             }

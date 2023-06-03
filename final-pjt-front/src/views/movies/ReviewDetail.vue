@@ -44,8 +44,8 @@ export default {
     name: 'ReviewDetail',
     data() {
         return {
-            review: JSON.parse(localStorage.getItem("reviewdetail")) || "",
-            reviewList: JSON.parse(localStorage.getItem("reviewList")) || "",
+            review: JSON.parse(sessionStorage.getItem("reviewdetail")) || "",
+            reviewList: JSON.parse(sessionStorage.getItem("reviewList")) || "",
             reviewId: null,
             title: null,
             content: null,
@@ -55,7 +55,7 @@ export default {
 
             // user
             userName: null,
-            currentUserName: localStorage.getItem("username"),
+            currentUserName: sessionStorage.getItem("username"),
             userId: null,
 
             // comment
@@ -68,7 +68,7 @@ export default {
     // },
     methods: {
         setToken: function() {
-        const token = localStorage.getItem('jwt')
+        const token = sessionStorage.getItem('jwt')
         const config = {
             Authorization: `Bearer ${token}`
         }
@@ -186,7 +186,7 @@ export default {
 
         // 프로필로 이동
         goToProfile() {
-            localStorage.setItem('profile_user', this.userName)
+            sessionStorage.setItem('profile_user', this.userName)
             this.$router.push({ name: 'UserProfile' })
         },
     },

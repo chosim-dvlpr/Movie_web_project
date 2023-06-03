@@ -64,7 +64,7 @@ export default {
         data: this.userdata, 
       })
       .then((res) => {
-        localStorage.setItem("jwt", res.data.access)
+        sessionStorage.setItem("jwt", res.data.access)
         this.getUser()
         this.$emit('login')
         alert("You have successfully logged in.")
@@ -88,17 +88,17 @@ export default {
         headers: this.setToken(),
       })
       .then((res) => {
-        localStorage.removeItem("username")
-        localStorage.removeItem("userId")
-        localStorage.setItem("username", res.data.username)
-        localStorage.setItem("userId", res.data.userId)
+        // localStorage.removeItem("username")
+        // localStorage.removeItem("userId")
+        sessionStorage.setItem("username", res.data.username)
+        sessionStorage.setItem("userId", res.data.userId)
       })
       .catch((err) => {
         console.log(err)
       })
       },
       setToken: function() {
-        const token = localStorage.getItem('jwt')
+        const token = sessionStorage.getItem('jwt')
         const config = {
             Authorization: `Bearer ${token}`
         }

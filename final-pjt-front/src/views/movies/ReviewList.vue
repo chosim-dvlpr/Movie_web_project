@@ -38,9 +38,9 @@ export default {
     data() {
         return {
           reviewList: [],
-          movieDetail: JSON.parse(localStorage.getItem('moviedetail')),
+          movieDetail: JSON.parse(sessionStorage.getItem('moviedetail')),
           checkMovieIdCount: false,
-          // reviewList: localStorage.getItem('reviewList'),
+          // reviewList: sessionStorage.getItem('reviewList'),
           // reviewList: this.$route.params.reviewList
         }
     },
@@ -48,7 +48,7 @@ export default {
       goToReviewDetail(review) {
         // console.log(review.id)
         this.$router.push({ name: 'ReviewDetail', params: { id: review.id, review: review }})
-        localStorage.setItem('reviewdetail', JSON.stringify(review))
+        sessionStorage.setItem('reviewdetail', JSON.stringify(review))
       },
       goToMovieDetail(movieId) {
         this.$router.push({ name: 'MovieDetail', params: { id: movieId, movieId: movieId }})
@@ -82,7 +82,7 @@ export default {
       .then(res => {
           // console.log('+'+res)
           this.reviewList.push(res.data)
-          localStorage.setItem('reviewList', JSON.stringify(this.reviewList[0]))
+          sessionStorage.setItem('reviewList', JSON.stringify(this.reviewList[0]))
       })
       .catch(err => {
           console.log(err)
@@ -90,7 +90,7 @@ export default {
     }
     // mounted() {
     //     // 로컬 스토리지에서 리뷰 불러오기
-    //     const storedReviews = localStorage.getItem('reviewList')
+    //     const storedReviews = sessionStorage.getItem('reviewList')
     //     if (storedReviews) {
     //         this.reviewList = JSON.parse(storedReviews)
     //     }
@@ -107,10 +107,10 @@ export default {
     //         console.log(this.reviewList)
 
     //         // 로컬 스토리지에 데이터 저장
-    //         localStorage.setItem('reviewList', JSON.stringify(this.reviewList))
+    //         sessionStorage.setItem('reviewList', JSON.stringify(this.reviewList))
 
     //         // 컴포넌트 데이터 업데이트 후 로컬 스토리지에서 다시 불러오기
-    //         const storedReviews = localStorage.getItem('reviewList')
+    //         const storedReviews = sessionStorage.getItem('reviewList')
     //         if (storedReviews) {
     //             this.reviewList = JSON.parse(storedReviews)
     //         }

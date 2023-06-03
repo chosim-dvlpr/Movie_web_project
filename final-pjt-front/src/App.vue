@@ -45,25 +45,25 @@ export default {
   data: function () {
     return {
       isLogin: false,
-      userName: localStorage.getItem('username'),
+      userName: sessionStorage.getItem('username'),
     }
   },
   methods: {
       logout: function() {                  // logout 메서드 정의하는데, 로그아웃을 처리하기 위해 사용.
         this.isLogin = false                // isLogin 을 false 로 설정.
-        localStorage.removeItem('jwt')      // 로컬스토리지에서 jwt 제거
+        // localStorage.removeItem('jwt')      // 로컬스토리지에서 jwt 제거
         this.$router.push({ name: 'Login' })  // 로그인 페이지로 이동
       },
     },
   created() {                        // 앱이 생성될떄 호출되는 함수 정의(라이프사이클훅)
-    const token = localStorage.getItem('jwt')   // 로컬스토리지에서 jwt(JSON Web Token을 나타내며, 로그인한 사용자를 인증하는 데 사용되는 토큰) 값을 가져와서 token이라는 변수에 할당.
+    const token = sessionStorage.getItem('jwt')   // 세션스토리지에서 jwt(JSON Web Token을 나타내며, 로그인한 사용자를 인증하는 데 사용되는 토큰) 값을 가져와서 token이라는 변수에 할당.
     if (token) {                                // 토큰에 값이 있다면
       this.isLogin = true                       // isLogin 을 false 에서 true 로 변환     
     }
-    this.userName = localStorage.getItem('username')
+    this.userName = sessionStorage.getItem('username')
   },
   mounted() {
-    this.userName = localStorage.getItem('username')
+    this.userName = sessionStorage.getItem('username')
   }
 }
 

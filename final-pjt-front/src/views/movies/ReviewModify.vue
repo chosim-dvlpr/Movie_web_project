@@ -65,7 +65,7 @@ export default {
       .then(res => {
         // console.log(res.data.id) // movie id
         this.$router.push({ name: 'ReviewList', params: { id: res.data.id } })
-        localStorage.removeItem('reviewdetail')
+        sessionStorage.removeItem('reviewdetail')
       })
       .catch(err => {
         console.log(err)

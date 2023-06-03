@@ -83,13 +83,13 @@ export default {
     },
     data() {
       return {
-        movieDetail: JSON.parse(localStorage.getItem("moviedetail")),
+        movieDetail: JSON.parse(sessionStorage.getItem("moviedetail")),
         isLike: false,
         videoKeyList: ['a8Gx8wiNbs8', '0-wPm99PF9U'],
         videoKey: '',
         video: '',
 
-        movieId: JSON.parse(localStorage.getItem('moviedetail')).id,
+        movieId: JSON.parse(sessionStorage.getItem('moviedetail')).id,
         requestMovieList: [],
       }
     },
@@ -105,7 +105,7 @@ export default {
         this.$router.push({ name: 'ReviewList', params: { id: this.movieDetail.id }})
       },
       setToken: function() {
-        const token = localStorage.getItem('jwt')
+        const token = sessionStorage.getItem('jwt')
         const config = {
             Authorization: `Bearer ${token}`
         }
