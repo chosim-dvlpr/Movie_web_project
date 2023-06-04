@@ -21,10 +21,8 @@
             </div>
         </div> -->
         <div class="video_box">
-            <iframe width="2000px" height="1500px" src="https://www.youtube.com/embed/d9MyW72ELq0?controls=0&amp;start=1&mute=1&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="100%" height="600px" src="https://www.youtube.com/embed/d9MyW72ELq0?controls=0&amp;start=1&mute=1&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-
-
 
         <div class="gallery">
             <div v-for="movie in movieList" :key="movie.id" class="content_box">
@@ -145,12 +143,18 @@ nav {
 }
 
 .video_box {
+    padding-bottom:56.25%; height:0; overflow:hidden;
     position: absolute;
-    top: -360px;
-    left: -100px;
+    top: -7vh;
+    left: 0px;
     display: flex;
     z-index: 0;
+    width: 100%;
 }
+
+.video_box iframe,
+.video_box object,
+.video_box embed {position:absolute; top:0; left:0; width:100%; height:100%;}
 
 button {
     background-color: white;
