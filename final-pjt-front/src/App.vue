@@ -26,7 +26,7 @@
         </div>
       </div>
       <div v-else class="is-not-login">
-        <router-link :to="{ name: 'Signup' }">Signup</router-link> |
+        <router-link :to="{ name: 'Signup' }" id="signup-button">Signup</router-link>
         <router-link :to="{ name: 'Login' }">Login</router-link> 
       </div>
     </div>
@@ -92,7 +92,8 @@ export default {
 #nav {
   z-index: 1;
   text-align: right;
-  background-color: #FFD700;
+  /* background-color: #FFD700; */
+  background: linear-gradient(to bottom, #FFD700 90%, rgba(0, 0, 0, 0));
   position:fixed;
   display: grid;
   /* grid-template-columns: repeat(2, 1fr); */
@@ -179,6 +180,10 @@ export default {
   
   /* width: 100%; */
   /* left: -300px; */
+}
+
+#signup-button {
+  margin-right: 10px;
 }
 
 </style>

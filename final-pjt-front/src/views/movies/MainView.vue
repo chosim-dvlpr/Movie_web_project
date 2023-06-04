@@ -197,20 +197,24 @@ button {
 }
 
 .img_box_img {
+    /* cover : 가로세로 비율 유지 */
     object-fit: cover;
     width: 350px;
+    height: 520px;
     margin-top: 50px;
     margin-left: 20px;
     margin-right: 20px;
-    transition-delay: 0.1s;
-    transition-duration: 0.7s;
+    /* transition-delay: 0.01s; */
+    transition-duration: 0.4s;
     box-shadow: 10px 10px 30px black;
     border-radius: 5px;
 }
 
 .img_box_img:hover {
     width: 370px;
+    height: 540px;
     color: black;
+    margin: 10px;
 }
 
 .content_box_detail {

@@ -122,9 +122,10 @@ export default {
   height: 50%;
   display: grid;
   justify-items: center;
-  background-color: beige;
+  background-color: rgb(0, 0, 0);
   border-radius: 7px;
   box-shadow: 0px 0px 5px 2px black;
+  color: white;
 }
 
 #login-err-msg-holder {
@@ -144,8 +145,8 @@ export default {
   font-weight: bold;
   color: #8a0000;
   border: 1px solid #8a0000;
-  background-color: #e58f8f;
-  /* 로그인 에러 시 opacity 변경 */
+  background-color: #e8a8a8;
+  /* 로그인 에러 시 opacity(투명도) 변경 */
   opacity: 0;
 }
 
