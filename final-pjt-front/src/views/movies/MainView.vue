@@ -21,7 +21,7 @@
             </div>
         </div> -->
         <div class="video_box">
-            <iframe width="100%" height="600px" src="https://www.youtube.com/embed/d9MyW72ELq0?controls=0&amp;start=1&mute=1&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/kihrFxwdMb4?&amp;playlist=kihrFxwdMb4&start=0&mute=1&autoplay=1&loop=1&modestbranding=0&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
 
         <div class="gallery">
@@ -142,9 +142,9 @@ nav {
 }
 
 .video_box {
-    padding-bottom:56.25%; 
-    height:0; 
-    overflow:hidden;
+    padding-bottom: 56.25%; 
+    height: 0; 
+    overflow: hidden;
     position: relative;
     /* top: -185px; */
     /* display: flex; */
