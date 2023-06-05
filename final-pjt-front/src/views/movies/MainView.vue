@@ -135,7 +135,6 @@ nav {
     z-index: 3;
 }
 
-
 .carousel_box {
     position: absolute;
     display: flex;
@@ -143,18 +142,25 @@ nav {
 }
 
 .video_box {
-    padding-bottom:56.25%; height:0; overflow:hidden;
-    position: absolute;
-    top: -7vh;
-    left: 0px;
-    display: flex;
-    z-index: 0;
-    width: 100%;
+    padding-bottom:56.25%; 
+    height:0; 
+    overflow:hidden;
+    position: relative;
+    /* top: -185px; */
+    /* display: flex; */
+    /* z-index: 0; */
+    /* width: 100%; */
 }
 
 .video_box iframe,
 .video_box object,
-.video_box embed {position:absolute; top:0; left:0; width:100%; height:100%;}
+.video_box embed {
+    position:absolute; 
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%;
+}
 
 button {
     background-color: white;
