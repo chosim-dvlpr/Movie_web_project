@@ -68,6 +68,7 @@ export default {
         this.getUser()
         this.$emit('login')
         alert("You have successfully logged in.")
+        event.preventDefault()
         this.$router.push({ name: 'MainView' })
       })
       .catch((err) => {
