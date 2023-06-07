@@ -21,10 +21,17 @@
             </div>
         </div> -->
         <div class="video_box">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/kihrFxwdMb4?&amp;playlist=kihrFxwdMb4&start=0&mute=1&autoplay=1&loop=1&modestbranding=0&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="1000px" height="400px" src="https://www.youtube.com/embed/kihrFxwdMb4?&amp;playlist=kihrFxwdMb4&start=0&mute=1&autoplay=1&loop=1&modestbranding=0&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
 
         <div class="popular-movie">
+            <div class="popular-movie-list">
+                <div v-for="movie in movieList" :key="movie.id" class="popular-movie-box">
+                    <div class="popular-movie-img-box">
+                        <img class="popular-movie-img" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`">
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- <div class="wrapper">
@@ -88,8 +95,8 @@
         </div> -->
 
 
-
-        <div class="gallery">
+        
+        <!-- <div class="gallery">
             <div v-for="movie in movieList" :key="movie.id" class="content_box">
                 <div class="movie_box">
                     <div class="img_box">
@@ -100,7 +107,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -330,22 +337,33 @@ button {
     position: absolute;
     top: 550px;
     background-color: rgba(128, 128, 128, 0.33);
-    width: 100%;
+    width: 90%;
+    left: 50%;
+    transform: translate(-50%);
 }
 
-/* .wrapper {
-     background-color: gray;
- display: grid;
- grid-template-columns: repeat(3, 100%);
- overflow: hidden;
- scroll-behavior: smooth;
+.popular-movie-list {
+    overflow-x: scroll;
+    position: relative;
+    display: grid;
+    object-fit: cover;
+    grid-template-columns: repeat(6, auto);
+    justify-content: space-evenly;
 }
-.wrapper section {
- width: 100%;
- position: relative;
- display: grid;
- grid-template-columns: repeat(5, auto);
- margin: 20px 0;
-} */
+
+.popular-movie-box {
+    background-color: red;
+    width: 200px;
+}
+
+.popular-movie-img-box {
+    display: grid;
+}
+
+.popular-movie-img {
+    width: 100%;
+    height: 100%;
+}
+
 
 </style>
