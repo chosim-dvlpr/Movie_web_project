@@ -37,7 +37,7 @@
     - 영화 추천 : 완성
 5. 데이터베이스 모델링 ( ERD )
     
-    ![img](https://file.notion.so/f/s/af1e0360-6ddb-4ae6-b54d-564964356228/Untitled.png?id=c9eef894-3b0b-4614-b634-988ab1bb5fcc&table=block&spaceId=3555a6a2-9aa8-4c67-ae5a-c4997e11cef4&expirationTimestamp=1685108841867&signature=Yt64zYNSxf1Q6OPjzI1Sq8lQo5T8kL11Lo1BtGe67pM&downloadName=Untitled.png)
+    ![img](img/ERD.png)
     
 6. 영화 추천 알고리즘에 대한 기술적 설명
     - TMDB 사이트에서 특정 영화와 비슷한 영화를 추천해주는 similar API 를 불러와서 특정 영화 상세 페이지에 접속하면 연관된 영화를 추천할 수 있도록 설계했습니다.
