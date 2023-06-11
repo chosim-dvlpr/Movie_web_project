@@ -33,6 +33,8 @@
                 </div>
             </div>
         </div>
+
+        
         
         <!-- <div class="wrapper">
             <section id="section1">
@@ -337,18 +339,19 @@ button {
     position: absolute;
     top: 550px;
     background-color: rgba(128, 128, 128, 0.33);
-    width: 90%;
-    left: 50%;
-    transform: translate(-50%);
+    /* width: 90%; */
+    /* left: 50%; */
+    /* transform: translate(-50%); */
+    overflow: hidden;
 }
 
 .popular-movie-list {
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     position: relative;
-    display: grid;
+    display: flex;
     object-fit: cover;
-    grid-template-columns: repeat(6, auto);
-    justify-content: space-evenly;
+    /* grid-template-columns: repeat(6, auto); */
+    /* justify-content: space-evenly; */
 }
 
 .popular-movie-box {
@@ -367,3 +370,4 @@ button {
 
 
 </style>
+
