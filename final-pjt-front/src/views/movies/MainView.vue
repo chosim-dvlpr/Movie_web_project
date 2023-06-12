@@ -25,15 +25,16 @@
         </div>
 
         <div class="popular-movie">
-            <div class="prev-button" @click="clickPrevButton">prev</div>
+            <div class="prev-button" @click="clickPrevButton"><i class="fas fa-chevron-circle-left fa-lg" style="color: #383838;"></i></div>
             <div class="popular-movie-list-box">
-                <div class="popular-movie-list" :style="{transform: `translate(${this.transformNum}%)`}">
+                <!-- <div class="popular-movie-list" :style="{transform: `translate(${this.transformNum}%)`}"> -->
+                <div class="popular-movie-list" :style="transformStyleSet">
                     <div v-for="movie in movieList" :key="movie.id" class="popular-movie-box">
                         <img class="popular-movie-img" @click="gotoMovieDetail(movie)" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`">
                     </div>
                 </div>
             </div>
-            <div class="next-button" @click="clickNextButton">next</div>
+            <div class="next-button" @click="clickNextButton"><i class="fas fa-chevron-circle-right fa-lg" style="color: #383838;"></i></div>
         </div>
 
         
@@ -131,6 +132,7 @@ export default {
             videoKey: '',
             video: null,
             transformNum: 0,
+            movieLength: 0,
         }
     },
     methods: {
@@ -141,6 +143,7 @@ export default {
             })
             .then(res => {
                 this.movieList = res.data
+                this.movieLength = res.data.length
                 // localStorage.clear('movieList')
                 sessionStorage.setItem('movieList', JSON.stringify(this.movieList))
                 // this.test = localStorage.getItem('movieList')
@@ -190,15 +193,15 @@ export default {
             if (this.transformNum === 0) {
                 this.transformNum = 0
             } else {
-                this.transformNum += 10
+                this.transformNum += 50
             }
         },
         // next 버튼 클릭 시 뒤로 이동
         clickNextButton() {
-            this.transformNum += -10
-            if (this.transformNum === -100) {
-                this.transformNum = 0
-            }
+            this.transformNum += -50
+            // if (this.transformNum === -1000) {
+            //     this.transformNum = 0
+            // }
         },
     },
     created() {
@@ -208,6 +211,14 @@ export default {
     mounted() {
         
     },
+    computed: {
+        transformStyleSet() {
+            return {
+                'transform': `translate(${this.transformNum}vw)`,
+                'transition-duration': '0.4s',
+            }
+        }
+    }
     // computed: {
     //     ...mapState({
     //         movieList: state => state.movieList
@@ -355,10 +366,9 @@ button {
 
 .popular-movie {
     position: absolute;
-    /* top: 40vh; */
     bottom: 3vh;
-    background-color: rgba(128, 128, 128, 0.33);
     width: 90%;
+    height: 400px;
     left: 5%;
     overflow: hidden;
     display: flex;
@@ -375,6 +385,7 @@ button {
 .popular-movie-list {
     /* position: relative; */
     display: flex;
+    align-items: center;
     /* width: 100%; */
     /* overflow: hidden; */
     /* grid-template-columns: repeat(6, auto); */
@@ -389,21 +400,39 @@ button {
 .popular-movie-img {
     width: 200px;
     height: 300px;
+    margin: 0 3px;
+    transition-duration: 0.3s;
+    border-radius: 2%;
+}
+
+.popular-movie-img:hover {
+    width: 250px;
+    height: calc(230*1.5px);
 }
 
 .prev-button {
     position: absolute;
     z-index: 3;
-    left: 0;
-    background-color: blueviolet;
-    font-size: 20px;
+    left: 5px;
+    font-size: 30px;
+    transition-duration: 0.3s;
+}
+
+.prev-button:hover {
+    font-size: 35px;
+    cursor: pointer;
 }
 
 .next-button {
     position: absolute;
-    right: 0;
-    background-color: blueviolet;
-    font-size: 20px;
+    right: 5px;
+    font-size: 30px;
+    transition-duration: 0.3s;
+}
+
+.next-button:hover {
+    font-size: 35px;
+    cursor: pointer;
 }
 </style>
 
