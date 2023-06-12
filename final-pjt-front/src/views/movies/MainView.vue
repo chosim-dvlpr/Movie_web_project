@@ -29,7 +29,7 @@
             <div class="popular-movie-list-box">
                 <div class="popular-movie-list" :style="{transform: `translate(${this.transformNum}%)`}">
                     <div v-for="movie in movieList" :key="movie.id" class="popular-movie-box">
-                        <img class="popular-movie-img" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`">
+                        <img class="popular-movie-img" @click="gotoMovieDetail(movie)" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`">
                     </div>
                 </div>
             </div>
@@ -381,15 +381,14 @@ button {
     /* justify-content: space-evenly; */
 }
 
-.popular-movie-box {
+/* .popular-movie-box {
     background-color: red;
     width: 200px;
-}
+} */
 
 .popular-movie-img {
     width: 200px;
-    /* height: 100%; */
-    /* object-fit: fill; */
+    height: 300px;
 }
 
 .prev-button {
