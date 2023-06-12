@@ -27,7 +27,7 @@
         <div class="popular-movie">
             <div class="prev-button" @click="clickPrevButton">prev</div>
             <div class="popular-movie-list-box">
-                <div class="popular-movie-list" :style="{transform: `translate(${this.transformNum}vw)`}">
+                <div class="popular-movie-list" :style="{transform: `translate(${this.transformNum}%)`}">
                     <div v-for="movie in movieList" :key="movie.id" class="popular-movie-box">
                         <img class="popular-movie-img" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`">
                     </div>
@@ -187,11 +187,18 @@ export default {
         },
         // prev 버튼 클릭 시 앞으로 이동
         clickPrevButton() {
-            this.transformNum += 80
+            if (this.transformNum === 0) {
+                this.transformNum = 0
+            } else {
+                this.transformNum += 10
+            }
         },
         // next 버튼 클릭 시 뒤로 이동
         clickNextButton() {
-            this.transformNum += -80
+            this.transformNum += -10
+            if (this.transformNum === -100) {
+                this.transformNum = 0
+            }
         },
     },
     created() {
