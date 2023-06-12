@@ -13,4 +13,8 @@
 - sessionStorage <-> localStorage
   - localStorage는 브라우저가 종료돼도 데이터가 남아있지만, session의 경우 데이터가 소멸됨
   - 로그인 정보나 영화데이터 정보 저장의 경우, localStorage보다 브라우저가 종료되면 사라지는 sessionStorage를 사용하는 것이 더 나을 것 같다고 판단, -> 전체 코드 수정!
+- MainView의 인기 영화 목록 캐러셀 - 버튼 클릭 시 transform으로 내부 박스 이동하기
+  - overflow 되는 부분은 가려지도록 (overflow: hidden)
+  - transform: translate(00%)
+  - 한계 : infinite carousel은 불가
 

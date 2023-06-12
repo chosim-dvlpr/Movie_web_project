@@ -25,13 +25,15 @@
         </div>
 
         <div class="popular-movie">
-            <div class="popular-movie-list">
-                <div v-for="movie in movieList" :key="movie.id" class="popular-movie-box">
-                    <div class="popular-movie-img-box">
+            <div class="prev-button" @click="clickPrevButton">prev</div>
+            <div class="popular-movie-list-box">
+                <div class="popular-movie-list" :style="{transform: `translate(${this.transformNum}vw)`}">
+                    <div v-for="movie in movieList" :key="movie.id" class="popular-movie-box">
                         <img class="popular-movie-img" :src="`https://www.themoviedb.org/t/p/original${movie.poster_path}`">
                     </div>
                 </div>
             </div>
+            <div class="next-button" @click="clickNextButton">next</div>
         </div>
 
         
@@ -128,6 +130,7 @@ export default {
             // videoKeyList: ['a8Gx8wiNbs8', '0-wPm99PF9U'],
             videoKey: '',
             video: null,
+            transformNum: 0,
         }
     },
     methods: {
@@ -181,7 +184,15 @@ export default {
                 return `https://www.youtube.com/embed/${this.video.id}`;
             }
             return '';
-        }
+        },
+        // prev 버튼 클릭 시 앞으로 이동
+        clickPrevButton() {
+            this.transformNum += 80
+        },
+        // next 버튼 클릭 시 뒤로 이동
+        clickNextButton() {
+            this.transformNum += -80
+        },
     },
     created() {
         this.showMovies()
@@ -337,19 +348,28 @@ button {
 
 .popular-movie {
     position: absolute;
-    top: 550px;
+    /* top: 40vh; */
+    bottom: 3vh;
     background-color: rgba(128, 128, 128, 0.33);
-    /* width: 90%; */
-    /* left: 50%; */
-    /* transform: translate(-50%); */
+    width: 90%;
+    left: 5%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.popular-movie-list-box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    /* transform: translate(-50%); */
 }
 
 .popular-movie-list {
-    /* overflow-x: scroll; */
-    position: relative;
+    /* position: relative; */
     display: flex;
-    object-fit: cover;
+    /* width: 100%; */
+    /* overflow: hidden; */
     /* grid-template-columns: repeat(6, auto); */
     /* justify-content: space-evenly; */
 }
@@ -359,15 +379,25 @@ button {
     width: 200px;
 }
 
-.popular-movie-img-box {
-    display: grid;
-}
-
 .popular-movie-img {
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    /* height: 100%; */
+    /* object-fit: fill; */
 }
 
+.prev-button {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    background-color: blueviolet;
+    font-size: 20px;
+}
 
+.next-button {
+    position: absolute;
+    right: 0;
+    background-color: blueviolet;
+    font-size: 20px;
+}
 </style>
 
