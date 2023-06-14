@@ -20,8 +20,8 @@
             </div> -->
           </div>
           <div class="title_box">
-            <div class="title_box_detail" style="color:black; font-weight:bold;">
-              <img src="@/assets/사다리.png" class="ladder-img" style="width:15%; height:270px; border-radius:0; display:flex; margin-left:30px;">
+            <div class="title_box_detail">
+              <img src="@/assets/사다리.png" class="ladder-img">
               <div style="display:flex; justify-content:center; align-items:center; flex-direction:column; margin:auto;">
                 <p style="font-size:40px; padding-top:45px; position:relative; right:10px;">{{ movieDetail.original_title }}</p>
                 <p style="font-size:25px; padding-bottom:45px; position:relative; right:10px;">VOTE : {{ movieDetail.vote_average}}</p>
@@ -58,8 +58,8 @@
       <button @click="goToReviewList">리뷰 보기</button>
       <button @click="goToReviewCreate">리뷰 작성</button>
     </div>
-    <div style="width:50rem;">
-      <button @click="backToMain">뒤로가기</button>
+    <div>
+      <button class="back-to-main" @click="backToMain">뒤로가기</button>
     </div>
   </div>
 </template>
@@ -205,6 +205,8 @@ button:hover {
   display: flex;
   position: relative;
   width: 100%;
+  top: 160px;
+  align-items: center;
 }
 
 .content_box {
@@ -219,8 +221,12 @@ button:hover {
 }
 
 .ladder-img {
-  width: 600px;
   border-radius: 20px;
+  width:15%; 
+  height:270px; 
+  border-radius:0; 
+  display:flex; 
+  margin-left:30px;
 }
 
 .detail_box {
@@ -235,7 +241,7 @@ button:hover {
   /* transform: skew(-20deg); */
   background: rgba(71, 71, 71, 0.356);
   box-shadow: 1px 1px 40px black;
-  top: 160px;
+  /* top: 160px; */
 }
 
 .material-symbols-rounded {
@@ -298,12 +304,14 @@ button:hover {
   width: 450px;
   height: 270px;
   position: relative;
-  top: 600px;
-  right: 170px;
+  /* top: 600px; */
+  /* right: 170px; */
+  left: 50%;
   border-radius: 3px;
-  text-decoration-color: black;
   display: flex;
   box-shadow: 10px 10px 50px black;
+  color:black; 
+  font-weight:bold;
 }
 
 .material-symbols-outlined {
@@ -312,5 +320,9 @@ button:hover {
   'wght' 400,
   'GRAD' 0,
   'opsz' 48
+}
+
+.back-to-main {
+  position: relative;
 }
 </style>
