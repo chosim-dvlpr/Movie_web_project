@@ -2,7 +2,7 @@
   <div class="root">
     <div>
       <div class="content_box">
-        <p class="background_img"><img :src="`https://www.themoviedb.org/t/p/original${movieDetail.backdrop_path}`" style="width: 2000px;"></p>
+        <div class="background-img-box"><img class="background-img" :src="`https://www.themoviedb.org/t/p/original${movieDetail.backdrop_path}`"></div>
         <div class="top_content">
           <div class="detail_box">
             <p id="movie_title">{{ movieDetail.title }}</p>
@@ -21,7 +21,7 @@
           </div>
           <div class="title_box">
             <div class="title_box_detail" style="color:black; font-weight:bold;">
-              <img src="@/assets/사다리.png" style="width:15%; height:270px; border-radius:0; display:flex; margin-left:30px;">
+              <img src="@/assets/사다리.png" class="ladder-img" style="width:15%; height:270px; border-radius:0; display:flex; margin-left:30px;">
               <div style="display:flex; justify-content:center; align-items:center; flex-direction:column; margin:auto;">
                 <p style="font-size:40px; padding-top:45px; position:relative; right:10px;">{{ movieDetail.original_title }}</p>
                 <p style="font-size:25px; padding-bottom:45px; position:relative; right:10px;">VOTE : {{ movieDetail.vote_average}}</p>
@@ -67,7 +67,7 @@
 <script>
 import axios from 'axios'
 import youtube_api_key from '../../youtube_data'
-import RequestMovie from '@/components/RequestMovie.vue'
+// import RequestMovie from '@/components/RequestMovie.vue'
 import api_key from '../../data'
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -78,9 +78,9 @@ const API_KEY = api_key.API_KEY
 
 export default {
     name: 'MovieDetail',
-    component: {
-      RequestMovie,
-    },
+    // component: {
+    //   RequestMovie,
+    // },
     data() {
       return {
         movieDetail: JSON.parse(sessionStorage.getItem("moviedetail")),
@@ -130,7 +130,6 @@ export default {
           const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.videoKeyList[0]}&key=${Y_API_KEY}`
           axios.get(url)
           .then(response => {
-              console.log(response)
               this.video = response.data.items[0].id
           })
           .catch(error => {
@@ -148,7 +147,7 @@ export default {
                 this.requestMovieList.push(res.data.results[0])
                 this.requestMovieList.push(res.data.results[1])
                 this.requestMovieList.push(res.data.results[2])
-                this.requestMovieList.push(res.data.results[5])
+                this.requestMovieList.push(res.data.results[3])
                 this.requestMovieList.push(res.data.results[4])
             })
             .catch(err => {
@@ -185,19 +184,27 @@ button:hover {
   background-image: url('');
 } */
 
-.background_img {
+.background-img-box {
   /* background-repeat : no-repeat; */
   /* background-position: top; */
-  /* object-fit: cover; */
-  display: flex;
-  position: fixed;
+  object-fit: cover;
+  /* display: flex; */
+  position: absolute;
   filter: brightness(50%); 
-  z-index: 0;
+  top: 150px;
+  left: 0;
+  width: 100%;
+}
+
+.background-img {
+  object-fit: cover;
+  width: 100%;
 }
 
 .top_content {
   display: flex;
   position: relative;
+  width: 100%;
 }
 
 .content_box {
@@ -211,7 +218,7 @@ button:hover {
   background-color: transparent;
 }
 
-img {
+.ladder-img {
   width: 600px;
   border-radius: 20px;
 }
@@ -220,15 +227,15 @@ img {
   display: flex;
   flex-direction: column;
   position: relative;
-  left: -20%;
-  padding: 100px;
-  padding-left: 380px;
-  width: 100rem;
+  left: 0;
+  padding: 30px;
+  /* padding-left: 380px; */
+  width: 60%;
   /* height: 1000px; */
   /* transform: skew(-20deg); */
   background: rgba(71, 71, 71, 0.356);
   box-shadow: 1px 1px 40px black;
-  top: 180px;
+  top: 160px;
 }
 
 .material-symbols-rounded {
