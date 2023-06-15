@@ -9,12 +9,11 @@
             <p id="movie_overview">{{ movieDetail.overview }}</p>
             <p>개봉일 : {{ movieDetail.release_date }}</p>
             <div v-if="!this.isLike">
-              <p @click="likeMovie"><i class="far fa-heart fa-lg" style="color: #ff0000;"></i></p>
+              <span class="if-you-like-movie-box"><p class="if-you-like-movie" >이 영화가 마음에 든다면? </p><i @click="likeMovie" class="far fa-heart fa-lg" style="color: #ff0000;"></i></span>
             </div>
             <div v-else>
-              <p @click="likeMovie"><i class="fas fa-heart fa-lg" style="color: #ff0000;"></i></p>
+              <span class="if-you-like-movie-box"><p class="if-you-like-movie" >이 영화가 마음에 든다면? </p><i @click="likeMovie" class="fas fa-heart fa-lg" style="color: #ff0000;"></i></span>
             </div>
-
             <!-- <div class="video_box">
               <iframe :src="`https://youtube.com/embed/${this.video}`" width="600px" height="450px" frameborder="0"></iframe>
             </div> -->
@@ -54,11 +53,9 @@
       </div>
     </div>
 
-    <div style="width:10rem; position:absolute; left:10rem;">
+    <div class="review-button">
       <button @click="goToReviewList">리뷰 보기</button>
       <button @click="goToReviewCreate">리뷰 작성</button>
-    </div>
-    <div>
       <button class="back-to-main" @click="backToMain">뒤로가기</button>
     </div>
   </div>
@@ -178,6 +175,7 @@ button:hover {
   background-position: top;
   object-fit: cover;
   background-size : cover;
+  color: rgb(129, 129, 129);
 }
 
 /* #movieDetail {
@@ -324,5 +322,23 @@ button:hover {
 
 .back-to-main {
   position: relative;
+  margin-top: 5px;
+}
+
+.review-button {
+  width:10rem; 
+  position:absolute; 
+  left:10rem;
+}
+
+.if-you-like-movie-box {
+  display: flex;
+  justify-content: center;
+}
+
+.if-you-like-movie {
+  background-color: rgba(128, 128, 128, 0.592);
+  color: black;
+  margin-right: 10px;
 }
 </style>
