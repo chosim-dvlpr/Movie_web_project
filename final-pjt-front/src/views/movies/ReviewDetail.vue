@@ -5,7 +5,7 @@
     <div>
         <div>
             <p>제목 : {{ this.review.title }}</p>
-            <p>작성자 : <button style="background-color:beige; border-radius:40px;" @click="goToProfile">{{ this.userName }}</button></p>
+            <p>작성자 : <button @click="goToProfile">{{ this.userName }}</button></p>
             <p>내용 : {{ this.review.content }}</p>
             <p>평점 : {{ this.review.rating }}</p>
             <p style="color:#FFD700;" v-if="review.recommendation">
@@ -19,7 +19,7 @@
             <button @click="submitComment">작성</button>
             <div>
                 <span v-for="commentObject in this.commentList" :key="commentObject.id">
-                    <p>{{ commentObject.user.username }} : {{ commentObject.content }}
+                    <p class="comment-detail" >{{ commentObject.user.username }} : {{ commentObject.content }}
                     <button @click="deleteComment(commentObject.id)">삭제</button></p>
                 </span>
             </div>
@@ -85,7 +85,6 @@ export default {
                     rating: this.review.rating,
                     recommendation: this.review.recommendation,
                 }
-                // console.log(getUserId())
                 this.$router.push({ name: 'ReviewModify', params: { id: this.reviewId, review: newReview }})
             } else {
                 alert('수정할 수 없습니다!')
@@ -98,10 +97,8 @@ export default {
                 axios({
                     method: 'delete',
                     url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/`,
-                    // headers: this.setToken(),
                 })
                 .then(res => {
-                    // console.log(res.data)
                     alert('리뷰가 삭제되었습니다!')
                     this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
                     this.reviewList.removeItem(res.data)
@@ -169,11 +166,6 @@ export default {
                 })
                 .then(() => {
                     alert('댓글이 삭제되었습니다!')
-                    // console.log(res)
-                    // this.$router.push({ name: 'ReviewList', params: { id: this.review.movie }})
-                    // this.commentList.removeItem(res.data)
-
-                    console.log(this.commentList)
                     this.getComments()
                 })
                 .catch(err => {
@@ -197,7 +189,6 @@ export default {
             url: `${API_URL}/api/movies/${this.review.id}/reviewdetail/`,
         })
         .then(res => {
-            // console.log('_'+JSON.stringify(res.data.user.username))
             this.movieId = JSON.stringify(res.data.movie.id)
             this.userName = JSON.stringify(res.data.user.username).replace(/"/g, '')
             this.userId = JSON.stringify(res.data.user.id)
@@ -211,10 +202,25 @@ export default {
 
 <style>
 .review_detail {
-  position: relative;
-  top: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    position: relative;
+    top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+button {
+    background-color: beige;
+    border-radius: 4%;
+}
+
+button:hover {
+    transition-duration: 0.1s;
+    background-color: #FFD700;
+}
+
+.comment-detail {
+    margin-top: 5px;
 }
 </style>

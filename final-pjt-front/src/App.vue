@@ -108,7 +108,7 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #2c2500;
+  color: #957f13;
 }
 
 .hello_user {
@@ -117,7 +117,6 @@ export default {
   right: 50px;
   margin-top: 46.5px;
   flex-direction: column;
-  color: #5c4e00;
   font-size: 15px;
 }
 

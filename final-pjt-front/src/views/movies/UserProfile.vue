@@ -113,6 +113,7 @@ export default {
   margin: auto;
   padding: 100px;
   box-shadow: 2px 2px 10px gray;
+  color: white;
 }
 
 

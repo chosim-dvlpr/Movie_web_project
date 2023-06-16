@@ -6,15 +6,15 @@
     </div>
     <form @submit.prevent="reviewCreate">
       <div>
-        <label for="title">제목:</label>
+        <label for="title" class="title">제목:</label>
         <input type="text" id="title" v-model="title" required>
       </div>
       <div>
-        <label for="content">내용:</label>
+        <label for="content" class="content">내용:</label>
         <textarea id="content" v-model="content" required></textarea>
       </div>
       <div>
-        <label for="rating">평점:</label>
+        <label for="rating" class="rating">평점:</label>
         <input type="number" id="rating" v-model="rating" min="0" max="5" required>
       </div>
       <div>
@@ -24,7 +24,6 @@
       <button type="submit">작성 완료</button>
     </form>
     </div>
-    <br>
     <button @click="goToMovieDetail">뒤로가기</button>
   </div>
 </template>
@@ -111,6 +110,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
 }
 
 .input_box {
@@ -128,5 +128,11 @@ form > div {
   margin: 3px;
   display:flex;
   align-items:center;
+}
+
+.title,
+.content,
+.rating {
+  margin-right: 5px;
 }
 </style> 
