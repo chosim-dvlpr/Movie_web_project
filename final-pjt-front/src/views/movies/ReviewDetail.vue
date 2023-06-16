@@ -63,9 +63,6 @@ export default {
             commentList: [],
         }
     },
-    // mounted() {
-    //     this.getComments()
-    // },
     methods: {
         setToken: function() {
         const token = sessionStorage.getItem('jwt')
@@ -162,7 +159,6 @@ export default {
                 axios({
                     method: 'delete',
                     url: `${API_URL}/api/movies/comment/${comment_pk}`,
-                    // headers: this.setToken(),
                 })
                 .then(() => {
                     alert('댓글이 삭제되었습니다!')
